@@ -73,19 +73,8 @@ const BottomNav = () => {
                                 isActive ? 'text-savanna-gold translate-y-0.5' : 'opacity-70'
                             }`}
                         >
-                                        {item.label}
-                                    </span>
-
-                        {/* Active indicator bar */}
-                        {isActive && (
-                            <motion.div
-                                layoutId="activeIndicator"
-                                className="absolute bottom-0 w-8 h-0.5 bg-savanna-gold rounded-full"
-                                initial={{ opacity: 0, scaleX: 0 }}
-                                animate={{ opacity: 1, scaleX: 1 }}
-                                transition={{ duration: 0.3 }}
-                            />
-                        )}
+                            {item.label}
+                        </span>
                       </>
                   )}
                 </NavLink>

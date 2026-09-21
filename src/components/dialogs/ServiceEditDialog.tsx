@@ -109,18 +109,18 @@ export default function ServiceEditDialog({
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto border border-border/30 p-0 bg-background shadow-2xl">
+            <DialogContent className="max-w-[95vw] sm:max-w-2xl max-h-[90vh] overflow-y-auto border border-border/30 p-0 bg-background shadow-2xl">
                 {/* Header with Gold Accent */}
-                <div className="relative p-8 pb-6 border-b border-border/30">
+                <div className="relative p-4 sm:p-6 md:p-8 pb-4 sm:pb-6 border-b border-border/30">
                     <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-savanna-gold to-transparent" />
 
                     <DialogHeader className="text-left">
                         <div className="flex items-center gap-3 mb-2">
-                            <div className="w-12 h-12 flex items-center justify-center border border-savanna-gold/30 bg-savanna-gold/10">
-                                <SelectedIcon className="w-6 h-6 text-savanna-gold" />
+                            <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center border border-savanna-gold/30 bg-savanna-gold/10 shrink-0">
+                                <SelectedIcon className="w-5 h-5 sm:w-6 sm:h-6 text-savanna-gold" />
                             </div>
-                            <div>
-                                <DialogTitle className="font-display text-2xl md:text-3xl text-foreground font-light">
+                            <div className="min-w-0">
+                                <DialogTitle className="font-display text-xl md:text-2xl lg:text-3xl text-foreground font-light">
                                     {service ? "Edit " : "Add New "}
                                     <span className="italic text-savanna-gold">Service</span>
                                 </DialogTitle>
@@ -133,7 +133,7 @@ export default function ServiceEditDialog({
                 </div>
 
                 {/* Form Content */}
-                <div className="p-8 space-y-6">
+                <div className="p-4 sm:p-6 md:p-8 space-y-6">
                     {/* Service Title */}
                     <div className="space-y-2">
                         <Label
@@ -173,7 +173,7 @@ export default function ServiceEditDialog({
                         <Label className="text-[10px] uppercase tracking-[0.2em] text-savanna-gold font-bold">
                             Service Icon
                         </Label>
-                        <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
+                        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 sm:gap-3">
                             {icons.map((item) => {
                                 const Icon = item.icon;
                                 return (
@@ -183,7 +183,7 @@ export default function ServiceEditDialog({
                                         onClick={() => setIconName(item.name)}
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
-                                        className={`flex flex-col items-center gap-2 p-4 border transition-all ${
+                                        className={`flex flex-col items-center gap-1.5 sm:gap-2 p-3 sm:p-4 border transition-all ${
                                             iconName === item.name
                                                 ? "border-savanna-gold bg-savanna-gold/10 shadow-lg shadow-savanna-gold/20"
                                                 : "border-border/30 hover:border-savanna-gold/50 hover:bg-savanna-charcoal/30"
@@ -274,7 +274,7 @@ export default function ServiceEditDialog({
                 </div>
 
                 {/* Footer Actions */}
-                <div className="p-8 pt-6 border-t border-border/30 flex flex-col sm:flex-row gap-3">
+                <div className="p-4 sm:p-6 md:p-8 pt-4 sm:pt-6 border-t border-border/30 flex flex-col sm:flex-row gap-3">
                     <Button
                         variant="outline"
                         onClick={() => onOpenChange(false)}

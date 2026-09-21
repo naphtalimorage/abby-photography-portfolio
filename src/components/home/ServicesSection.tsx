@@ -46,28 +46,28 @@ const ServicesSection = () => {
   };
 
   return (
-    <section id="services" className="py-24 md:py-32 bg-background">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-[64px]">
+    <section id="services" className="py-16 sm:py-20 md:py-24 lg:py-32 bg-background">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-[64px]">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
           <p className="text-sm tracking-[0.3em] uppercase text-muted-foreground mb-3">
             Services
           </p>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-light text-foreground">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-foreground">
             Investment & <span className="italic text-savanna-gold">Packages</span>
           </h2>
         </motion.div>
 
         {isLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {[1, 2, 3, 4].map((item) => (
-              <div key={item} className="h-[420px] bg-card border border-border animate-pulse" />
+              <div key={item} className="h-[350px] sm:h-[420px] bg-card border border-border animate-pulse" />
             ))}
           </div>
         ) : services.length === 0 ? (
@@ -78,7 +78,7 @@ const ServicesSection = () => {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {services.map((service, i) => {
               const Icon = iconMap[service.icon_name] || Camera;
               return (
@@ -88,12 +88,12 @@ const ServicesSection = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: i * 0.15 }}
-                  className="bg-card border border-border p-8 md:p-10 hover:border-savanna-gold/50 hover:shadow-lg hover:shadow-savanna-gold/10 transition-all duration-300 group flex flex-col h-full"
+                  className="bg-card border border-border p-5 sm:p-6 md:p-8 lg:p-10 hover:border-savanna-gold/50 hover:shadow-lg hover:shadow-savanna-gold/10 transition-all duration-300 group flex flex-col h-full"
                 >
-                  <div className="w-14 h-14 flex items-center justify-center bg-savanna-gold/10 rounded-full mb-6 group-hover:bg-savanna-gold/20 transition-colors">
-                    <Icon className="w-7 h-7 text-savanna-gold shrink-0" strokeWidth={1.5} />
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center bg-savanna-gold/10 rounded-full mb-4 sm:mb-6 group-hover:bg-savanna-gold/20 transition-colors">
+                    <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-savanna-gold shrink-0" strokeWidth={1.5} />
                   </div>
-                  <h3 className="font-display text-xl md:text-2xl text-foreground mb-2">{service.title}</h3>
+                  <h3 className="font-display text-lg sm:text-xl md:text-2xl text-foreground mb-2">{service.title}</h3>
                   <p className="text-savanna-gold text-sm tracking-wider mb-6 font-medium">{service.price}</p>
                   <ul className="space-y-3 mb-8 flex-grow">
                     {service.features.map((f: string) => (

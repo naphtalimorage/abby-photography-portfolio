@@ -15,10 +15,14 @@ export const useAdminProfile = () => {
                 .eq('user_id', user.id)
                 .maybeSingle();
 
-            if (error) throw error;
+            if (error) {
+                console.error('Admin profile fetch error:', error);
+                throw error;
+            }
+            console.log('Admin profile data:', data);
             return data;
         },
-        staleTime: 5 * 60 * 1000, // 5 minutes
+        staleTime: 30 * 1000, // 30 seconds - reduced to show updates faster
         retry: 1,
     });
 };

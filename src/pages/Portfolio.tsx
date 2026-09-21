@@ -93,13 +93,13 @@ const Lightbox = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onNext, onPrev, onClose]);
 
-  // Lock body scroll
+  // Lock body scroll when lightbox is open
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = '';
     };
-  }, []);
+  }, [currentIndex]);
 
   return (
       <motion.div
@@ -238,7 +238,7 @@ const Lightbox = ({
           </motion.div>
 
           {/* Info Panel - Side on Desktop, Hidden on Mobile when toggled */}
-          <AnimatePresence>
+          <AnimatePresence mode="sync">
             {showInfo && (
                 <motion.div
                     initial={{ opacity: 0, x: 50 }}
@@ -420,7 +420,7 @@ const Lightbox = ({
         </motion.div>
 
         {/* Mobile Info Panel - Slides up from bottom */}
-        <AnimatePresence>
+        <AnimatePresence mode="sync">
           {showInfo && (
               <motion.div
                   initial={{ y: '100%' }}
@@ -556,7 +556,7 @@ const Portfolio = () => {
       <div className="min-h-screen bg-background">
         {/* Header Section */}
 
-        <section className="pt-20 pb-12 md:pt-24 md:pb-16 flex items-center justify-center">
+        <section className="pt-16 sm:pt-20 pb-8 sm:pb-12 md:pt-24 md:pb-16 flex items-center justify-center">
           <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -564,11 +564,11 @@ const Portfolio = () => {
               className="text-center md:text-left"
           >
             <div className="flex items-center gap-4 mb-6 justify-center ">
-              <div className="w-12 h-[1px] bg-savanna-gold" />
+              <div className="w-12 h-px bg-savanna-gold" />
               <span className="text-savanna-gold text-sm tracking-[0.4em] uppercase font-medium">
                                  Portfolio
                         </span>
-              <div className="w-12 h-[1px] bg-savanna-gold" />
+              <div className="w-12 h-px bg-savanna-gold" />
             </div>
 
             <h1 className=" flex flex-col  items-center justify-center font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-savanna-cream mb-8 leading-[0.95]">
@@ -583,19 +583,24 @@ const Portfolio = () => {
         </section>
 
         {/* Category Filter */}
-        <section className="px-6 md:px-16 lg:px-[64px] max-w-[1600px] mx-auto mb-12 ">
+        <section className="px-6 md:px-16 lg:px-16 max-w-[1600px] mx-auto mb-12 ">
           <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               className="border-b border-border/30"
           >
-            <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-8 gap-y-4 overflow-x-auto hide-scrollbar">
+            <div className="flex gap-x-4 gap-y-4 overflow-x-auto hide-scrollbar">
               {categories.map((category) => (
                   <button
                       key={category}
                       onClick={() => setActiveCategory(category)}
-                      className={`relative py-5 text-sm tracking-[0.2em] uppercase font-semibold transition-all duration-300 ${
+                      className={`relative
+                       whitespace-nowrap
+                    px-6 py-3
+                    border
+                    transition-all duration-300
+                    text-sm tracking-wider uppercase font-medium ${
                           activeCategory === category
                               ? 'text-savanna-gold'
                               : 'text-muted-foreground hover:text-foreground'
@@ -723,7 +728,7 @@ const Portfolio = () => {
         </section>
 
         {/* Premium Lightbox */}
-        <AnimatePresence>
+        <AnimatePresence mode="sync">
           {lightboxIndex !== null && (
               <Lightbox
                   items={filteredItems}

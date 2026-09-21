@@ -1,18 +1,19 @@
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Phone, Send, ArrowRight } from 'lucide-react';
-
+import { Mail, MapPin, Phone, Send, Globe } from 'lucide-react';
+import { FaInstagram, FaTwitter } from 'react-icons/fa';
+import masaiMara from '../../assets/landscape.jpg';
 const contactInfo = [
   {
     icon: Mail,
     label: 'Email',
-    value: 'ryanryanny44@gmail.com',
-    href: 'mailto:ryanryanny44@gmail.com'
+    value: 'abigaelnaisianoi605@gmail.com',
+    href: 'mailto:abigaelnaisianoi605@gmail.com'
   },
   {
     icon: Phone,
     label: 'Phone',
-    value: '+254 703 542 276',
-    href: 'tel:+254703542276'
+    value: '+254 715 422 803',
+    href: 'tel:+254715422803'
   },
   {
     icon: MapPin,
@@ -33,163 +34,127 @@ const interests = [
 
 const Contact = () => {
   return (
-    <section id="contact" className="relative py-24 md:py-32 bg-background overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_var(--savanna-gold)_1px,_transparent_1px)] bg-[length:40px_40px]" />
+    <section id="contact" className="relative min-h-screen bg-savanna-charcoal overflow-hidden">
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${masaiMara})` }} />
+        <div className="absolute inset-0 bg-gradient-to-br from-savanna-charcoal via-savanna-charcoal/95 to-savanna-charcoal/90" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 md:px-12 lg:px-[64px]">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-12 md:mb-24 text-center"
-        >
-          <div className="flex items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-6">
-            <div className="w-8 sm:w-12 h-[1px] bg-savanna-gold" />
-            <span className="text-savanna-gold text-xs sm:text-sm tracking-[0.3em] sm:tracking-[0.4em] uppercase font-medium">
-              Get in Touch
-            </span>
-            <div className="w-8 sm:w-12 h-[1px] bg-savanna-gold" />
-          </div>
-
-          <h2 className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-foreground leading-[1.1] sm:leading-[0.95]">
-            <span className="block">Let's Design</span>
-            <span className="block italic text-savanna-gold mt-1 sm:mt-2">Your Journey</span>
-          </h2>
-        </motion.div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-          {/* Left - Info & Contact */}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-[64px] py-16 sm:py-20 md:py-24 lg:py-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-8">
+          {/* Left Side - Visual Content */}
           <motion.div
-            className="lg:col-span-5"
-            initial={{ opacity: 0, x: -30 }}
+            className="lg:col-span-1 flex flex-col justify-center py-8 sm:py-12 lg:py-0"
+            initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <div className="mb-10">
-              <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-8">
-                Whether you're looking for a private safari, a photography workshop, or a fine art print for your home, I'm here to help you bring the Mara to life.
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <span className="inline-block text-savanna-gold text-sm tracking-[0.4em] uppercase font-medium mb-6">
+                Connect With Us
+              </span>
+              <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-savanna-cream leading-tight mb-6">
+                Start Your
+                <span className="block italic text-savanna-gold mt-2">African Adventure</span>
+              </h2>
+              <p className="text-savanna-cream/70 text-lg leading-relaxed mb-12 max-w-md">
+                From private safaris to fine art photography, let's create unforgettable experiences in the heart of East Africa.
               </p>
+            </motion.div>
 
-              {/* Decorative Line */}
-              <div className="flex items-center gap-4 mb-8">
-                <div className="flex-1 h-[1px] bg-gradient-to-r from-savanna-gold/40 to-transparent" />
-                <p className="text-savanna-gold text-sm tracking-[0.3em] uppercase italic font-display">
-                  Begin Your Story
-                </p>
-              </div>
-            </div>
-
-            {/* Contact Cards */}
-            <div className="space-y-4 mb-10">
+            {/* Contact Info Cards */}
+            <div className="space-y-4 mb-12">
               {contactInfo.map((item, index) => (
                 <motion.a
                   key={index}
                   href={item.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="group flex items-center gap-4 p-4 border border-border/30 hover:border-savanna-gold/40 bg-background hover:bg-savanna-gold/5 transition-all duration-300"
+                  transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+                  className="group flex items-center gap-4 p-5 bg-savanna-cream/5 backdrop-blur-sm border border-savanna-gold/20 hover:border-savanna-gold/50 hover:bg-savanna-gold/10 transition-all duration-300"
                 >
-                  {/* Icon */}
-                  <div className="w-12 h-12 flex items-center justify-center border border-savanna-gold/30 group-hover:border-savanna-gold group-hover:bg-savanna-gold/10 transition-all duration-300 flex-shrink-0">
-                    <item.icon className="w-5 h-5 text-savanna-gold" />
+                  <div className="w-14 h-14 flex items-center justify-center bg-savanna-gold/10 group-hover:bg-savanna-gold/20 transition-all duration-300 flex-shrink-0">
+                    <item.icon className="w-6 h-6 text-savanna-gold" />
                   </div>
-
-                  {/* Content */}
-                  <div className="flex-1 min-w-0">
-                    <p className="text-muted-foreground text-xs sm:text-sm tracking-widest uppercase mb-1 font-medium">
+                  <div className="flex-1">
+                    <p className="text-savanna-cream/50 text-xs tracking-widest uppercase mb-1">
                       {item.label}
                     </p>
-                    <p className="text-foreground text-sm sm:text-base md:text-lg group-hover:text-savanna-gold transition-colors duration-300 truncate">
+                    <p className="text-savanna-cream text-base group-hover:text-savanna-gold transition-colors duration-300">
                       {item.value}
                     </p>
                   </div>
-
-                  {/* Arrow */}
-                  <ArrowRight
-                    size={16}
-                    className="text-muted-foreground group-hover:text-savanna-gold group-hover:translate-x-1 transition-all duration-300"
-                  />
                 </motion.a>
               ))}
             </div>
 
-            {/* Social Proof */}
+            {/* Social Links */}
             <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="pt-8 border-t border-border/30"
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="flex items-center gap-6"
             >
-              <p className="text-muted-foreground text-sm tracking-widest uppercase mb-4 font-medium">
-                Trusted by
-              </p>
-              <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-muted-foreground/60 text-xs sm:text-base">
-                <span>National Geographic</span>
-                <span className="hidden sm:block w-1 h-1 bg-savanna-gold rounded-full" />
-                <span>JW Marriott</span>
-                <span className="hidden sm:block w-1 h-1 bg-savanna-gold rounded-full" />
-                <span>Safari Magazine</span>
-              </div>
+              <a href="#" className="w-12 h-12 flex items-center justify-center border border-savanna-gold/30 text-savanna-cream/70 hover:text-savanna-gold hover:border-savanna-gold hover:bg-savanna-gold/10 transition-all duration-300">
+                <FaInstagram className="w-5 h-5" />
+              </a>
+              <a href="#" className="w-12 h-12 flex items-center justify-center border border-savanna-gold/30 text-savanna-cream/70 hover:text-savanna-gold hover:border-savanna-gold hover:bg-savanna-gold/10 transition-all duration-300">
+                <FaTwitter className="w-5 h-5" />
+              </a>
+              <a href="#" className="w-12 h-12 flex items-center justify-center border border-savanna-gold/30 text-savanna-cream/70 hover:text-savanna-gold hover:border-savanna-gold hover:bg-savanna-gold/10 transition-all duration-300">
+                <Globe className="w-5 h-5" />
+              </a>
             </motion.div>
           </motion.div>
 
-          {/* Right - Form */}
+          {/* Right Side - Form */}
           <motion.div
-            className="lg:col-span-7"
-            initial={{ opacity: 0, x: 30 }}
+            className="lg:col-span-1 py-12 lg:py-0"
+            initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <div className="relative bg-background border border-border/30 p-6 sm:p-8 md:p-12">
-              {/* Corner Accents */}
-              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-savanna-gold/40" />
-              <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-savanna-gold/40" />
-              <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-savanna-gold/40" />
-              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-savanna-gold/40" />
+            <div className="bg-savanna-cream/5 backdrop-blur-md border border-savanna-gold/20 p-8 md:p-10 lg:p-12">
+              <div className="mb-8">
+                <h3 className="font-display text-2xl text-savanna-cream mb-2">Send a Message</h3>
+                <p className="text-savanna-cream/60 text-sm">Fill out the form below and we'll get back to you within 24 hours.</p>
+              </div>
 
-              <form className="space-y-6 md:space-y-8">
-                {/* Name & Email */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm tracking-[0.2em] uppercase text-muted-foreground font-medium">
-                      Your Name
-                    </label>
-                    <input
-                      type="text"
-                      className="w-full bg-transparent border-b border-border/50 focus:border-savanna-gold focus:ring-0 py-3 transition-colors text-foreground placeholder:text-muted-foreground/40"
-                      placeholder="John Doe"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm tracking-[0.2em] uppercase text-muted-foreground font-medium">
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      className="w-full bg-transparent border-b border-border/50 focus:border-savanna-gold focus:ring-0 py-3 transition-colors text-foreground placeholder:text-muted-foreground/40"
-                      placeholder="john@example.com"
-                    />
-                  </div>
+              <form className="space-y-6">
+                {/* Name */}
+                <div>
+                  <input
+                    type="text"
+                    className="w-full bg-savanna-cream/5 border border-savanna-gold/20 focus:border-savanna-gold focus:bg-savanna-gold/5 px-5 py-4 text-savanna-cream placeholder:text-savanna-cream/40 transition-all duration-300 outline-none"
+                    placeholder="Your Name"
+                  />
+                </div>
+
+                {/* Email */}
+                <div>
+                  <input
+                    type="email"
+                    className="w-full bg-savanna-cream/5 border border-savanna-gold/20 focus:border-savanna-gold focus:bg-savanna-gold/5 px-5 py-4 text-savanna-cream placeholder:text-savanna-cream/40 transition-all duration-300 outline-none"
+                    placeholder="Email Address"
+                  />
                 </div>
 
                 {/* Interest */}
-                <div className="space-y-2">
-                  <label className="text-sm tracking-[0.2em] uppercase text-muted-foreground font-medium">
-                    Interest
-                  </label>
-                  <select className="w-full bg-transparent border-b border-border/50 focus:border-savanna-gold focus:ring-0 py-3 transition-colors text-foreground appearance-none cursor-pointer">
+                <div>
+                  <select className="w-full bg-savanna-cream/5 border border-savanna-gold/20 focus:border-savanna-gold focus:bg-savanna-gold/5 px-5 py-4 text-savanna-cream appearance-none cursor-pointer transition-all duration-300 outline-none">
+                    <option value="" className="bg-savanna-charcoal text-savanna-cream/40">Select Interest</option>
                     {interests.map((interest) => (
-                      <option key={interest} value={interest} className="bg-background text-foreground">
+                      <option key={interest} value={interest} className="bg-savanna-charcoal text-savanna-cream">
                         {interest}
                       </option>
                     ))}
@@ -197,29 +162,21 @@ const Contact = () => {
                 </div>
 
                 {/* Message */}
-                <div className="space-y-2">
-                  <label className="text-sm tracking-[0.2em] uppercase text-muted-foreground font-medium">
-                    Message
-                  </label>
+                <div>
                   <textarea
-                    className="w-full bg-transparent border-b border-border/50 focus:border-savanna-gold focus:ring-0 py-3 transition-colors text-foreground placeholder:text-muted-foreground/40 min-h-[120px] resize-none"
-                    placeholder="Tell me about your dream safari..."
+                    className="w-full bg-savanna-cream/5 border border-savanna-gold/20 focus:border-savanna-gold focus:bg-savanna-gold/5 px-5 py-4 text-savanna-cream placeholder:text-savanna-cream/40 min-h-[140px] resize-none transition-all duration-300 outline-none"
+                    placeholder="Your Message"
                   />
                 </div>
 
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="group w-full flex items-center justify-center gap-3 px-8 py-5 bg-savanna-gold text-savanna-charcoal text-sm tracking-[0.2em] uppercase font-semibold hover:bg-savanna-gold/90 hover:shadow-lg hover:shadow-savanna-gold/30 transition-all duration-300"
+                  className="group w-full flex items-center justify-center gap-3 px-8 py-4 bg-savanna-gold text-savanna-charcoal text-sm tracking-[0.2em] uppercase font-semibold hover:bg-savanna-gold/90 transition-all duration-300"
                 >
-                  <Send size={14} className="group-hover:translate-x-1 transition-transform" />
-                  <span>Send Inquiry</span>
+                  <Send size={16} className="group-hover:translate-x-1 transition-transform" />
+                  <span>Send Message</span>
                 </button>
-
-                {/* Privacy Note */}
-                <p className="text-center text-muted-foreground/60 text-sm font-medium">
-                  Your information is secure and will never be shared.
-                </p>
               </form>
             </div>
           </motion.div>

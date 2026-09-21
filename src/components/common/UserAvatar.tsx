@@ -45,6 +45,10 @@ export const UserAvatar = ({
   const avatarUrl = profile?.avatar_url ?? undefined;
   const displayName = profile?.full_name ?? null;
 
+  // Debug logging
+  console.log('UserAvatar - profile:', profile);
+  console.log('UserAvatar - avatarUrl:', avatarUrl);
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -98,6 +102,9 @@ export const UserAvatar = ({
       const { data: urlData } = supabase.storage.from('avatars').getPublicUrl(filePath);
       const avatarUrl = urlData.publicUrl;
 
+      console.log('Upload - avatarUrl:', avatarUrl);
+      console.log('Upload - filePath:', filePath);
+
       // Update admin_users table
       const { error: updateError } = await supabase
           .from('admin_users')
@@ -106,6 +113,8 @@ export const UserAvatar = ({
 
       if (updateError) throw updateError;
 
+      console.log('Upload - Database updated successfully');
+
       // Invalidate the query so it refetches and updates everywhere
       queryClient.invalidateQueries({ queryKey: ['admin-profile'] });
 
@@ -113,6 +122,7 @@ export const UserAvatar = ({
       setOpen(false);
       setSelectedImage(null);
     } catch (err: any) {
+      console.error('Upload error:', err);
       toast.error(err.message || 'Failed to upload avatar');
     } finally {
       setIsUploading(false);
@@ -133,7 +143,12 @@ export const UserAvatar = ({
 
   const avatarElement = (
       <Avatar className={`${getSize()} border-2 border-savanna-gold/20 transition-all ${interactive ? 'group-hover:border-savanna-gold/60 cursor-pointer' : ''}`}>
-        <AvatarImage src={avatarUrl} alt="Avatar" />
+        <AvatarImage
+          src={avatarUrl}
+          alt="Avatar"
+          onLoad={() => console.log('Avatar image loaded successfully')}
+          onError={(e) => console.error('Avatar image failed to load:', e)}
+        />
         <AvatarFallback className="bg-savanna-gold/10 text-savanna-gold font-medium">
           {isLoading ? '…' : (useLogoAsFallback && !avatarUrl) ? <LogoSVG className="w-full h-full p-1" /> : initial}
         </AvatarFallback>

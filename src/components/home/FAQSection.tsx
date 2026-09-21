@@ -35,7 +35,7 @@ const FAQ = () => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_var(--savanna-gold)_1px,_transparent_1px)] bg-[length:40px_40px]" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 md:px-12 lg:px-[64px]">
+      <div className="relative max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           {/* Left - Header & Intro */}
           <div className="lg:col-span-4">
@@ -47,7 +47,7 @@ const FAQ = () => {
               className="lg:sticky lg:top-32"
             >
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-[1px] bg-savanna-gold" />
+                <div className="w-12 h-px bg-savanna-gold" />
                 <span className="text-savanna-gold text-sm tracking-[0.4em] uppercase font-medium">
                   Preparation
                 </span>
@@ -92,7 +92,7 @@ const FAQ = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="group border-b border-border/30 last:border-b-0"
+                  className="group border-b-0 border-border/30 "
                 >
                   <button
                     onClick={() => setOpenIndex(openIndex === index ? null : index)}
@@ -100,8 +100,8 @@ const FAQ = () => {
                   >
                     <div className="flex items-start gap-4 md:gap-6">
                       {/* Number */}
-                      <div className="flex-shrink-0 pt-1">
-                        <span className={`font-display text-base md:text-lg transition-colors duration-300 ${
+                      <div className="shrink-0 pt-0.5">
+                        <span className={`font-display text-sm md:text-base transition-colors duration-300 ${
                           openIndex === index
                             ? 'text-savanna-gold'
                             : 'text-muted-foreground/40'
@@ -112,17 +112,17 @@ const FAQ = () => {
 
                       {/* Question */}
                       <div className="flex-1">
-                        <h4 className={`font-display text-lg md:text-xl lg:text-2xl font-light leading-snug transition-colors duration-300 ${
+                        <h3 className={`font-display text-sm md:text-md lg:text-lg font-light leading-snug transition-colors duration-300 ${
                           openIndex === index
                             ? 'text-savanna-gold'
                             : 'text-foreground group-hover:text-savanna-gold/80'
                         }`}>
                           {faq.question}
-                        </h4>
+                        </h3>
                       </div>
 
                       {/* Icon */}
-                      <div className="flex-shrink-0 pt-1">
+                      <div className="shrink-0 pt-1">
                         <motion.div
                           animate={{ rotate: openIndex === index ? 180 : 0 }}
                           transition={{ duration: 0.3, ease: "easeInOut" }}
@@ -157,7 +157,7 @@ const FAQ = () => {
                       >
                         <div className="pb-6 md:pb-8 pl-10 md:pl-14">
                           <div className="flex items-start gap-4">
-                            <div className="w-8 h-[1px] bg-savanna-gold/40 mt-3 flex-shrink-0" />
+                            <div className="w-8 h-px bg-savanna-gold/40 mt-3 shrink-0" />
                             <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
                               {faq.answer}
                             </p>

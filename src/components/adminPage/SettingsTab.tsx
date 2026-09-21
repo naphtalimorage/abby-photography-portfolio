@@ -537,7 +537,7 @@ const SettingsTab = () => {
             </button>
 
             {/* Section Content */}
-            <AnimatePresence>
+            <AnimatePresence mode="sync">
               {(expandedSections.profile || window.innerWidth >= 768) && (
                   <motion.div
                       initial={{ height: 0, opacity: 0 }}
@@ -691,7 +691,7 @@ const SettingsTab = () => {
               />
             </button>
 
-            <AnimatePresence>
+            <AnimatePresence mode="sync">
               {(expandedSections.platforms || window.innerWidth >= 768) && (
                   <motion.div
                       initial={{ height: 0, opacity: 0 }}
@@ -793,7 +793,7 @@ const SettingsTab = () => {
               />
             </button>
 
-            <AnimatePresence>
+            <AnimatePresence mode="sync">
               {(expandedSections.notifications || window.innerWidth >= 768) && (
                   <motion.div
                       initial={{ height: 0, opacity: 0 }}
@@ -876,7 +876,7 @@ const SettingsTab = () => {
               />
             </button>
 
-            <AnimatePresence>
+            <AnimatePresence mode="sync">
               {(expandedSections.security || window.innerWidth >= 768) && (
                   <motion.div
                       initial={{ height: 0, opacity: 0 }}

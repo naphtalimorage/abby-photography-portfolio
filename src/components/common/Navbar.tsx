@@ -5,7 +5,7 @@ import { Menu, Shield, X, ArrowRight } from 'lucide-react';
 import { FaInstagram as Instagram, FaYoutube as Youtube } from 'react-icons/fa';
 import { ThemeToggle } from './ThemeToggle';
 import { Button } from '../ui/button';
-import { Logo } from './Logo';
+import {UserAvatar} from './UserAvatar.tsx';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -39,11 +39,13 @@ export function Navbar() {
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'Portfolio', path: '/portfolio' },
-    { name: 'Services', path: '/#services' },
-    { name: 'Safaris', path: '/tours' },
-    { name: 'About', path: '/about' },
+    { name: 'Reels', path: '/portfolio' },
+    { name: 'Gallary', path: '/#services' },
+    { name: 'About', path: '/tours' },
+    { name: 'Services', path: '/about' },
+    { name: 'FAQ', path: '/#contact' },
     { name: 'Contact', path: '/#contact' },
+
   ];
 
   return (
@@ -56,10 +58,18 @@ export function Navbar() {
             : 'bg-transparent'
         }`}
       >
-        <div className="h-20 w-full px-6 md:px-12 lg:px-[64px] flex items-center justify-between gap-4">
+        <div className="h-20 w-full px-6 md:px-12 lg:px-16 flex items-center justify-between gap-4">
           {/* Logo */}
-          <Link to="/" className="flex-shrink-0">
-            <Logo showText={true} className="text-foreground" />
+          <Link to="/" className="flex items-center gap-3 shrink-0">
+            <UserAvatar size="lg" interactive={false} fallbackText="A" className="border-savanna-gold/30" />
+            <div className="flex flex-col">
+              <span className="text-lg font-display font-bold text-foreground tracking-wide">
+                Abby Wild
+              </span>
+              <span className="text-[10px] uppercase tracking-[0.3em] text-savanna-gold font-medium">
+                Gallery
+              </span>
+            </div>
           </Link>
 
           {/* Navigation Links - Desktop */}
@@ -92,10 +102,10 @@ export function Navbar() {
             {/* Admin Shield Link */}
             <Link
               to="/login"
-              className="hidden md:flex p-2 text-muted-foreground hover:text-savanna-gold transition-colors min-touch-target"
+              className="hidden md:flex p-4 text-muted-foreground hover:text-savanna-gold transition-colors min-touch-target"
               title="Admin Portal"
             >
-              <Shield className="w-5 h-5" />
+              <Shield className="w-5 h-5" strokeWidth={1.5} />
             </Link>
 
             {/* Theme Toggle */}
@@ -123,7 +133,7 @@ export function Navbar() {
       </nav>
 
       {/* Mobile Menu Drawer */}
-      <AnimatePresence>
+      <AnimatePresence mode="sync">
         {isMobileMenuOpen && (
           <>
             {/* Backdrop */}
@@ -146,7 +156,17 @@ export function Navbar() {
             >
               {/* Drawer Header */}
               <div className="flex items-center justify-between p-6 border-b border-border/30 flex-shrink-0">
-                <Logo showText={true} className="text-foreground" />
+                <div className="flex items-center gap-3">
+                  <UserAvatar size="lg" interactive={false} fallbackText="A" className="border-savanna-gold/30" />
+                  <div className="flex flex-col">
+                    <span className="text-lg font-display font-bold text-foreground tracking-wide">
+                      Abby Wild
+                    </span>
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-savanna-gold font-medium">
+                      Gallery
+                    </span>
+                  </div>
+                </div>
                 <Button
                   variant="ghost"
                   size="icon"
@@ -183,7 +203,7 @@ export function Navbar() {
                   to="/login"
                   className="flex items-center gap-3 py-3 text-foreground hover:text-savanna-gold transition-colors"
                 >
-                  <Shield className="w-5 h-5" />
+                  <Shield className="w-5 h-5" strokeWidth={1.5} />
                   <span className="font-medium">Admin Access</span>
                 </Link>
               </div>

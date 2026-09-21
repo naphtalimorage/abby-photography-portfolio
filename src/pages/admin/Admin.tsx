@@ -83,7 +83,7 @@ const AdminDashboard = () => {
             {!isMobile && (
                 <div className="flex items-center gap-2">
                             <span className="font-display text-sm text-foreground uppercase tracking-tight font-semibold">
-                                Senet
+                                Abby
                             </span>
                   <span className="font-display text-sm italic text-savanna-gold uppercase tracking-tight">
                                 Studio
@@ -211,7 +211,7 @@ const AdminDashboard = () => {
         </header>
 
         {/* Mobile Drawer */}
-        <AnimatePresence>
+        <AnimatePresence mode="sync">
           {isMobileMenuOpen && (
               <>
                 {/* Backdrop */}
@@ -261,7 +261,7 @@ const AdminDashboard = () => {
         </AnimatePresence>
 
         {/* Main Content */}
-        <main className="md:ml-64 min-h-screen pt-24 md:pt-0 px-5 md:px-8 lg:px-12 py-5 md:py-12 lg:py-16">
+        <main className="md:ml-64 min-h-screen pt-20 md:pt-0 px-4 sm:px-5 md:px-8 lg:px-12 py-5 md:py-12 lg:py-16">
           <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full flex flex-col">
             <TabsList className="mb-8 hidden md:flex bg-muted/50 border border-border/50">
               <TabsTrigger value="media" className="data-[state=active]:bg-background data-[state=active]:text-foreground">Media Library</TabsTrigger>

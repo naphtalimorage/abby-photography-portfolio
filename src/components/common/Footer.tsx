@@ -28,9 +28,9 @@ const Footer = () => {
       {/* Faint background texture */}
       <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_50%_50%,_var(--savanna-gold)_1px,_transparent_1px)] bg-[length:24px_24px]" />
 
-      <div className="relative max-w-7xl mx-auto px-6 md:px-12 lg:px-[64px] pt-16 pb-8 md:pb-12">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-[64px] pt-12 sm:pt-16 pb-6 sm:pb-8 md:pb-12">
         {/* Main footer grid */}
-        <div className="grid md:grid-cols-12 gap-10 md:gap-8 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-8 sm:gap-10 md:gap-8 mb-8 sm:mb-12">
           {/* Brand column */}
           <div className="md:col-span-5">
             <Logo className="mb-5" />
@@ -42,16 +42,16 @@ const Footer = () => {
             {/* Location & contact */}
             <div className="mt-6 space-y-3">
               <div className="flex items-center gap-3 text-savanna-cream/60 text-base">
-                <MapPin size={16} className="text-savanna-gold flex-shrink-0" />
+                <MapPin size={16} className="text-savanna-gold shrink-0" />
                 <span>Narok, Maasai Mara, Kenya</span>
               </div>
               <div className="flex items-center gap-3 text-savanna-cream/60 text-base">
-                <Mail size={16} className="text-savanna-gold flex-shrink-0" />
+                <Mail size={16} className="text-savanna-gold shrink-0" />
                 <a
-                  href="mailto:ryanryanny44@gmail.com"
+                  href="mailto:abigaelnaisianoi605@gmail.com"
                   className="hover:text-savanna-gold transition-colors"
                 >
-                  ryanryanny44@gmail.com
+                  abigaelnaisianoi605@gmail.com
                 </a>
               </div>
             </div>

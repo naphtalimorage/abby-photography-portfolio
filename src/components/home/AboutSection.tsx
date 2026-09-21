@@ -1,4 +1,4 @@
-import { Camera, Mail, Medal, PlayCircle, ArrowRight } from "lucide-react";
+import { Camera, Mail, Medal, PlayCircle, ArrowRight, Sparkles } from "lucide-react";
 import portraitUrl from "@/assets/IMG_0757.JPG.jpeg";
 export function AboutSection() {
 
@@ -12,124 +12,159 @@ export function AboutSection() {
 
   return (
     <section
-      className="w-full py-24 md:py-32 px-6 md:px-12 lg:px-[64px] bg-background overflow-hidden"
+      className="w-full py-24 md:py-32 px-6 md:px-12 lg:px-[64px] bg-gradient-to-b from-background via-background to-savanna-gold/5 overflow-hidden relative"
       id="about-preview"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center max-w-7xl mx-auto">
-        {/* Left Column: Portrait & Insignia */}
-        <div className="lg:col-span-5 relative flex justify-center">
-          <div className="relative w-full max-w-md aspect-square bg-card p-3 shadow-2xl border border-border">
-            {/* Decorative Gold Corner Brackets */}
-            <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-savanna-gold -translate-x-1 -translate-y-1"></div>
-            <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-savanna-gold translate-x-1 -translate-y-1"></div>
-            <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-savanna-gold -translate-x-1 translate-y-1"></div>
-            <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-savanna-gold translate-x-1 translate-y-1"></div>
+      {/* Decorative Background Elements */}
+      <div className="absolute top-20 left-10 w-64 h-64 bg-savanna-gold/5 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-savanna-gold/5 rounded-full blur-3xl"></div>
 
-            {/* Portrait */}
-            <img
-              alt="Abby Wild Portrait"
-              className="w-full h-full object-cover"
-              src={portraitUrl}
-            />
-
-            {/* Award Badge Chip */}
-            <div className="absolute -bottom-4 left-6 px-4 py-2 bg-savanna-charcoal/95 backdrop-blur-md text-savanna-cream text-xs leading-4 uppercase tracking-[0.2em] shadow-lg flex items-center gap-2 border border-savanna-gold/30">
-              <Medal className="w-4 h-4 text-savanna-gold" />
-              Expedition Guide & Fellow
-            </div>
-
-            {/* Since Circular Seal */}
-            <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-savanna-gold text-savanna-charcoal flex flex-col items-center justify-center text-center p-2 shadow-xl shadow-savanna-gold/30">
-              <span className="text-[10px] leading-[14px] uppercase tracking-widest font-bold">
-                ESTD
-              </span>
-              <span className="text-[24px] leading-[32px] font-bold leading-none">
-                2023
-              </span>
-              <span className="text-[8px] leading-[14px] uppercase tracking-widest">
-                NAIROBI
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Column: Narrative Biography */}
-        <div className="lg:col-span-7 flex flex-col gap-4">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-savanna-gold"></span>
-            <span className="text-xs leading-4 tracking-[0.2em] uppercase text-savanna-gold">
+      <div className="relative max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-savanna-gold/10 border border-savanna-gold/20 mb-6">
+            <Sparkles className="w-4 h-4 text-savanna-gold" />
+            <span className="text-xs leading-4 tracking-[0.2em] uppercase text-savanna-gold font-medium">
               The Story Behind The Shutter
             </span>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground leading-tight">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl text-foreground leading-tight mb-4">
             Crafting Living Legacies from the{' '}
             <span className="italic text-savanna-gold font-normal">Maasai Mara</span> to the
             World
           </h2>
-          <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-            Born with a restless fixation for raw horizons, Abby Wild spent her early
-            career navigating conservation frontiers across Kenya, Tanzania, and Uganda.
-            What began as solitary weeks tracking apex predators alongside indigenous
-            Samburu and Maasai scouts evolved into an international fine art practice.
-          </p>
-          <p className="text-sm md:text-base text-muted-foreground/80 leading-relaxed">
-            Abby's imagery rejects superficial tourist sensationalism in favor of
-            patient, respectful intimacy. Whether spending fourteen hours silent in a
-            custom gimballed Land Cruiser awaiting a lioness's glance or capturing the
-            ancestral dignity of East African pastoralist cultures, every frame balances
-            archival precision with profound ecological reverence.
-          </p>
+        </div>
 
-          {/* Specialty Badges */}
-          <div className="flex flex-wrap gap-2 pt-2">
-            {specialties.map((specialty) => (
-              <span
-                key={specialty}
-                className="px-3 py-1.5 bg-savanna-gold/10 border border-savanna-gold/30 text-foreground text-xs leading-4 tracking-wider uppercase"
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          {/* Portrait Side */}
+          <div className="relative order-2 lg:order-1">
+            <div className="relative">
+              {/* Main Portrait with Organic Shape */}
+              <div className="relative rounded-[2rem] overflow-hidden shadow-2xl border border-savanna-gold/20">
+                <img
+                  alt="Abby Wild Portrait"
+                  className="w-full aspect-[4/5] object-cover"
+                  src={portraitUrl}
+                />
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-savanna-charcoal/40 via-transparent to-transparent"></div>
+              </div>
+
+              {/* Floating Badge - Top Right */}
+              <div className="absolute -top-4 -right-4 bg-savanna-gold text-savanna-charcoal px-5 py-3 rounded-xl shadow-xl shadow-savanna-gold/30">
+                <div className="text-center">
+                  <span className="block text-[10px] leading-[14px] uppercase tracking-widest font-bold">
+                    ESTD
+                  </span>
+                  <span className="block text-2xl font-bold leading-none">
+                    2023
+                  </span>
+                  <span className="block text-[8px] leading-[14px] uppercase tracking-widest">
+                    NAIROBI
+                  </span>
+                </div>
+              </div>
+
+              {/* Floating Credential Badge - Bottom Left */}
+              <div className="absolute -bottom-4 -left-4 bg-savanna-charcoal/95 backdrop-blur-md text-savanna-cream px-5 py-3 rounded-xl shadow-xl border border-savanna-gold/30 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-savanna-gold/20 flex items-center justify-center">
+                  <Medal className="w-5 h-5 text-savanna-gold" />
+                </div>
+                <div>
+                  <p className="text-xs leading-4 uppercase tracking-[0.15em] font-medium">
+                    Expedition Guide
+                  </p>
+                  <p className="text-xs leading-4 uppercase tracking-[0.15em] text-savanna-gold/80">
+                    & Fellow
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Content Side */}
+          <div className="order-1 lg:order-2 flex flex-col gap-6">
+            {/* Narrative */}
+            <div className="space-y-6">
+              <p className="text-lg md:text-xl text-foreground leading-relaxed font-medium">
+                My photography journey began in 2025, when I started following photographers
+                and guests from around the world during game drives.
+                Assisting them with their equipment and watching how
+                they captured wildlife sparked my passion for photography.
+              </p>
+              <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+                I was later invited to Saruni Basecamp for a six-month photography training, where I
+                developed my skills and attended several conferences,
+                gaining valuable experience and inspiration.
+              </p>
+              <p className="text-base md:text-lg text-muted-foreground/80 leading-relaxed">
+                Today, I am working on wildlife films, using stable cameras to capture unique
+                moments while continuing to sharpen my editing skills.
+                My goal is to tell meaningful stories through photography and film,
+                bringing the beauty of wildlife closer to people.
+              </p>
+            </div>
+
+            {/* Specialties Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4">
+              {specialties.map((specialty) => (
+                <div
+                  key={specialty}
+                  className="flex items-center gap-3 px-4 py-3 bg-card border border-border rounded-lg hover:border-savanna-gold/30 transition-colors group"
+                >
+                  <div className="w-1.5 h-1.5 rounded-full bg-savanna-gold group-hover:scale-125 transition-transform"></div>
+                  <span className="text-sm text-foreground leading-5 tracking-wide">
+                    {specialty}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* Social Links */}
+            <div className="flex items-center gap-4 pt-4">
+              <a
+                className="flex items-center gap-3 px-5 py-3 bg-card border border-border rounded-lg hover:border-savanna-gold/50 hover:bg-savanna-gold/5 transition-all group"
+                href="https://www.instagram.com/ryan_wild_gallery"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                {specialty}
-              </span>
-            ))}
-          </div>
+                <Camera className="w-5 h-5 text-muted-foreground group-hover:text-savanna-gold transition-colors" />
+                <span className="text-sm text-foreground leading-5 tracking-wider">
+                  @ABBYWILDPHOTO
+                </span>
+              </a>
+              <a
+                className="flex items-center gap-3 px-5 py-3 bg-card border border-border rounded-lg hover:border-savanna-gold/50 hover:bg-savanna-gold/5 transition-all group"
+                href="https://www.youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <PlayCircle className="w-5 h-5 text-muted-foreground group-hover:text-savanna-gold transition-colors" />
+                <span className="text-sm text-foreground leading-5 tracking-wider">
+                  YOUTUBE
+                </span>
+              </a>
+              <a
+                className="flex items-center gap-3 px-5 py-3 bg-card border border-border rounded-lg hover:border-savanna-gold/50 hover:bg-savanna-gold/5 transition-all group"
+                href="mailto:abigaelnaisianoi605@gmail.com"
+              >
+                <Mail className="w-5 h-5 text-muted-foreground group-hover:text-savanna-gold transition-colors" />
+                <span className="text-sm text-foreground leading-5 tracking-wider">
+                  EMAIL
+                </span>
+              </a>
+            </div>
 
-          {/* Direct Social Links */}
-          <div className="flex items-center gap-6 pt-6 mt-2 border-t border-border/30">
-            <a
-              className="flex items-center gap-2 text-muted-foreground hover:text-savanna-gold transition-colors text-xs leading-4 tracking-widest"
-              href="https://www.instagram.com/ryan_wild_gallery"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Camera className="w-4 h-4" />
-              @RYANWILDPHOTO
-            </a>
-            <a
-              className="flex items-center gap-2 text-muted-foreground hover:text-savanna-gold transition-colors text-xs leading-4 tracking-widest"
-              href="https://www.youtube.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <PlayCircle className="w-4 h-4" />
-              YOUTUBE
-            </a>
-            <a
-              className="flex items-center gap-2 text-muted-foreground hover:text-savanna-gold transition-colors text-xs leading-4 tracking-widest"
-              href="mailto:ryanryanny44@gmail.com"
-            >
-              <Mail className="w-4 h-4" />
-              DIRECT DESK
-            </a>
-          </div>
-
-          {/* CTA Button */}
-          <div className="pt-4">
-            <a
-              href="/about"
-              className="inline-flex items-center gap-2 text-savanna-gold text-sm tracking-widest uppercase hover:gap-3 transition-all duration-300 font-medium group"
-            >
-              <span>Read Full Story</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </a>
+            {/* CTA Button */}
+            <div className="pt-6">
+              <a
+                href="/about"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-savanna-gold text-savanna-charcoal rounded-lg hover:bg-savanna-gold/90 transition-all shadow-lg shadow-savanna-gold/20 hover:shadow-savanna-gold/30 font-medium tracking-wider uppercase text-sm group"
+              >
+                <span>Read Full Story</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </a>
+            </div>
           </div>
         </div>
       </div>

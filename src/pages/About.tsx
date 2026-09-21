@@ -116,7 +116,7 @@ const About = () => {
       <div className="min-h-screen bg-background">
 
         {/* Hero Section */}
-        <section className="relative min-h-[70vh] md:min-h-screen flex items-center justify-center overflow-hidden">
+        <section className="relative min-h-[60vh] sm:min-h-[70vh] md:min-h-screen flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 z-0">
             <motion.div
                 initial={{ scale: 1.1 }}
@@ -130,7 +130,7 @@ const About = () => {
             <div className="absolute inset-0 bg-gradient-to-b from-savanna-charcoal/70 via-savanna-charcoal/40 to-background" />
           </div>
 
-          <div className="relative z-10 px-6 md:px-16 lg:px-[64px] max-w-4xl mx-auto text-center pt-20">
+          <div className="relative z-10 px-4 sm:px-6 md:px-16 lg:px-[64px] max-w-4xl mx-auto text-center pt-16 sm:pt-20">
             <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -156,8 +156,8 @@ const About = () => {
           </div>
         </section>
 
-        <section className="relative py-12 md:py-24">
-          <div className="max-w-[1600px] mx-auto px-5 md:px-12 lg:px-16">
+        <section className="relative py-10 sm:py-12 md:py-16 lg:py-24">
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-5 md:px-12 lg:px-16">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16 items-center">
               <motion.div initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="lg:col-span-5 relative">
                 <div className="relative max-w-sm sm:max-w-md mx-auto lg:max-w-none">

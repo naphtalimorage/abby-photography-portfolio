@@ -59,7 +59,7 @@ const ThemeToggle = () => {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="inline-flex items-center justify-center p-2 text-muted-foreground hover:text-savanna-gold transition-colors min-touch-target"
+        className="inline-flex items-center justify-center  text-muted-foreground hover:text-savanna-gold transition-colors min-touch-target"
         aria-label="Toggle theme"
       >
         <AnimatePresence mode="wait">
@@ -76,7 +76,7 @@ const ThemeToggle = () => {
       </button>
 
       {/* Dropdown Menu */}
-      <AnimatePresence>
+      <AnimatePresence mode="sync">
         {isOpen && (
           <>
             {/* Backdrop */}

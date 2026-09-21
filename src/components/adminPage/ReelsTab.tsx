@@ -244,6 +244,146 @@ const analytics = [
   }
 ];
 
+// Upload Form Component (moved outside to prevent re-creation on render)
+const UploadForm = ({
+  title,
+  setTitle,
+  thumbnailFile,
+  setThumbnailFile,
+  thumbnailPreview,
+  setThumbnailPreview,
+  videoFile,
+  setVideoFile,
+  videoPreview,
+  setVideoPreview,
+  uploading,
+  uploadProgress,
+  uploadMutation,
+}: {
+  title: string;
+  setTitle: (value: string) => void;
+  thumbnailFile: File | null;
+  setThumbnailFile: (file: File | null) => void;
+  thumbnailPreview: string | null;
+  setThumbnailPreview: (preview: string | null) => void;
+  videoFile: File | null;
+  setVideoFile: (file: File | null) => void;
+  videoPreview: string | null;
+  setVideoPreview: (preview: string | null) => void;
+  uploading: boolean;
+  uploadProgress: number;
+  uploadMutation: any;
+}) => (
+  <div className="space-y-4">
+    <div className="space-y-2">
+      <Label className="text-[10px] uppercase tracking-[0.2em] text-savanna-gold font-bold">
+        Title
+      </Label>
+      <Input
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        placeholder="e.g. Behind the Scenes"
+        className="bg-savanna-charcoal/50 border border-border/30 focus:border-savanna-gold focus:ring-0 h-11 md:h-12 px-4 text-sm text-foreground placeholder:text-muted-foreground/40 transition-all"
+      />
+    </div>
+
+    <div className="space-y-2">
+      <Label className="text-[10px] uppercase tracking-[0.2em] text-savanna-gold font-bold">
+        Thumbnail Image
+      </Label>
+      <Input
+        type="file"
+        accept="image/*"
+        onChange={(e) => {
+          const f = e.target.files?.[0] ?? null;
+          if (f) {
+            setThumbnailFile(f);
+            setThumbnailPreview(URL.createObjectURL(f));
+          } else {
+            setThumbnailFile(null);
+            setThumbnailPreview(null);
+          }
+        }}
+        className="bg-savanna-charcoal/50 border border-border/30 h-11 md:h-12 px-4 text-sm text-foreground"
+      />
+    </div>
+
+    {thumbnailPreview && (
+      <div className="space-y-2">
+        <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Thumbnail preview</p>
+        <img
+          src={thumbnailPreview}
+          alt="thumbnail"
+          className="h-20 w-20 md:h-24 md:w-24 object-cover border border-border/30"
+        />
+      </div>
+    )}
+
+    <div className="space-y-2">
+      <Label className="text-[10px] uppercase tracking-[0.2em] text-savanna-gold font-bold">
+        Video File
+      </Label>
+      <p className="text-[10px] text-muted-foreground">
+        Max size: <span className="font-medium text-savanna-gold">50MB</span>
+      </p>
+      <Input
+        type="file"
+        accept="video/*"
+        onChange={(e) => {
+          const f = e.target.files?.[0] ?? null;
+          if (!f) {
+            setVideoFile(null);
+            setVideoPreview(null);
+            return;
+          }
+
+          const MAX_BYTES = 50 * 1024 * 1024;
+          if (f.size > MAX_BYTES) {
+            toast.error(`"${f.name}" is too large. Max allowed is 50MB.`);
+            setVideoFile(null);
+            setVideoPreview(null);
+            return;
+          }
+
+          setVideoFile(f);
+          setVideoPreview(URL.createObjectURL(f));
+        }}
+        className="bg-savanna-charcoal/50 border border-border/30 h-11 md:h-12 px-4 text-sm text-foreground"
+      />
+    </div>
+
+    {videoPreview && (
+      <div className="space-y-2">
+        <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Video preview</p>
+        <video
+          src={videoPreview}
+          className="w-full max-w-xs border border-border/30"
+          muted
+          controls
+        />
+      </div>
+    )}
+
+    <div className="pt-2">
+      {uploading ? (
+        <div className="space-y-2">
+          <Progress value={uploadProgress || 50} className="h-2" />
+          <p className="text-xs text-muted-foreground">Uploading… {Math.round(uploadProgress)}%</p>
+        </div>
+      ) : (
+        <Button
+          className="w-full bg-savanna-gold text-savanna-charcoal hover:bg-savanna-gold/90 h-11 md:h-12 tracking-[0.2em] uppercase text-[10px] md:text-xs font-bold transition-all shadow-lg shadow-savanna-gold/20 active:scale-95"
+          disabled={!title.trim() || !thumbnailFile || !videoFile || uploading}
+          onClick={async () => uploadMutation.mutateAsync()}
+        >
+          <Upload className="mr-2 h-4 w-4" />
+          Upload Reel
+        </Button>
+      )}
+    </div>
+  </div>
+);
+
 const ReelsTab = () => {
   const queryClient = useQueryClient();
   const [showUploadPanel, setShowUploadPanel] = useState(false);
@@ -383,118 +523,6 @@ const ReelsTab = () => {
     deleteMutation.mutate(reel);
   };
 
-  // Upload Form Component (reused for desktop and mobile)
-  const UploadForm = () => (
-      <div className="space-y-4">
-        <div className="space-y-2">
-          <Label className="text-[10px] uppercase tracking-[0.2em] text-savanna-gold font-bold">
-            Title
-          </Label>
-          <Input
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="e.g. Behind the Scenes"
-              className="bg-savanna-charcoal/50 border border-border/30 focus:border-savanna-gold focus:ring-0 h-11 md:h-12 px-4 text-sm text-foreground placeholder:text-muted-foreground/40 transition-all"
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label className="text-[10px] uppercase tracking-[0.2em] text-savanna-gold font-bold">
-            Thumbnail Image
-          </Label>
-          <Input
-              type="file"
-              accept="image/*"
-              onChange={(e) => {
-                const f = e.target.files?.[0] ?? null;
-                if (f) {
-                  setThumbnailFile(f);
-                  setThumbnailPreview(URL.createObjectURL(f));
-                } else {
-                  setThumbnailFile(null);
-                  setThumbnailPreview(null);
-                }
-              }}
-              className="bg-savanna-charcoal/50 border border-border/30 h-11 md:h-12 px-4 text-sm text-foreground"
-          />
-        </div>
-
-        {thumbnailPreview && (
-            <div className="space-y-2">
-              <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Thumbnail preview</p>
-              <img
-                  src={thumbnailPreview}
-                  alt="thumbnail"
-                  className="h-20 w-20 md:h-24 md:w-24 object-cover border border-border/30"
-              />
-            </div>
-        )}
-
-        <div className="space-y-2">
-          <Label className="text-[10px] uppercase tracking-[0.2em] text-savanna-gold font-bold">
-            Video File
-          </Label>
-          <p className="text-[10px] text-muted-foreground">
-            Max size: <span className="font-medium text-savanna-gold">50MB</span>
-          </p>
-          <Input
-              type="file"
-              accept="video/*"
-              onChange={(e) => {
-                const f = e.target.files?.[0] ?? null;
-                if (!f) {
-                  setVideoFile(null);
-                  setVideoPreview(null);
-                  return;
-                }
-
-                const MAX_BYTES = 50 * 1024 * 1024;
-                if (f.size > MAX_BYTES) {
-                  toast.error(`"${f.name}" is too large. Max allowed is 50MB.`);
-                  setVideoFile(null);
-                  setVideoPreview(null);
-                  return;
-                }
-
-                setVideoFile(f);
-                setVideoPreview(URL.createObjectURL(f));
-              }}
-              className="bg-savanna-charcoal/50 border border-border/30 h-11 md:h-12 px-4 text-sm text-foreground"
-          />
-        </div>
-
-        {videoPreview && (
-            <div className="space-y-2">
-              <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Video preview</p>
-              <video
-                  src={videoPreview}
-                  className="w-full max-w-xs border border-border/30"
-                  muted
-                  controls
-              />
-            </div>
-        )}
-
-        <div className="pt-2">
-          {uploading ? (
-              <div className="space-y-2">
-                <Progress value={uploadProgress || 50} className="h-2" />
-                <p className="text-xs text-muted-foreground">Uploading… {Math.round(uploadProgress)}%</p>
-              </div>
-          ) : (
-              <Button
-                  className="w-full bg-savanna-gold text-savanna-charcoal hover:bg-savanna-gold/90 h-11 md:h-12 tracking-[0.2em] uppercase text-[10px] md:text-xs font-bold transition-all shadow-lg shadow-savanna-gold/20 active:scale-95"
-                  disabled={!title.trim() || !thumbnailFile || !videoFile || uploading}
-                  onClick={async () => uploadMutation.mutateAsync()}
-              >
-                <Upload className="mr-2 h-4 w-4" />
-                Upload Reel
-              </Button>
-          )}
-        </div>
-      </div>
-  );
-
   return (
       <div className="pb-24 md:pb-0">
         {/* Header */}
@@ -573,7 +601,21 @@ const ReelsTab = () => {
                   <p className="text-[10px] font-semibold uppercase text-savanna-gold tracking-widest">Upload</p>
                   <h3 className="mt-1 font-display text-xl text-foreground font-light">Add new video reel</h3>
                 </div>
-                <UploadForm />
+                <UploadForm
+                  title={title}
+                  setTitle={setTitle}
+                  thumbnailFile={thumbnailFile}
+                  setThumbnailFile={setThumbnailFile}
+                  thumbnailPreview={thumbnailPreview}
+                  setThumbnailPreview={setThumbnailPreview}
+                  videoFile={videoFile}
+                  setVideoFile={setVideoFile}
+                  videoPreview={videoPreview}
+                  setVideoPreview={setVideoPreview}
+                  uploading={uploading}
+                  uploadProgress={uploadProgress}
+                  uploadMutation={uploadMutation}
+                />
               </aside>
           )}
 
@@ -606,7 +648,7 @@ const ReelsTab = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="lg:hidden fixed inset-0 bg-savanna-charcoal/80 backdrop-blur-sm z-40"
+                    className="lg:hidden fixed inset-0 bg-savanna-charcoal/80 backdrop-blur-sm z-[80]"
                     onClick={() => setShowUploadPanel(false)}
                 />
 
@@ -616,7 +658,7 @@ const ReelsTab = () => {
                     animate={{ y: 0 }}
                     exit={{ y: '100%' }}
                     transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-                    className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-background border-t border-savanna-gold/20 max-h-[85vh] overflow-y-auto"
+                    className="lg:hidden fixed bottom-0 left-0 right-0 z-[90] bg-background border-t border-savanna-gold/20 max-h-[85vh] overflow-y-auto"
                 >
                   {/* Handle bar */}
                   <div className="sticky top-0 bg-background border-b border-border/30 p-4 flex items-center justify-between">
@@ -631,7 +673,21 @@ const ReelsTab = () => {
                   </div>
 
                   <div className="p-5">
-                    <UploadForm />
+                    <UploadForm
+                      title={title}
+                      setTitle={setTitle}
+                      thumbnailFile={thumbnailFile}
+                      setThumbnailFile={setThumbnailFile}
+                      thumbnailPreview={thumbnailPreview}
+                      setThumbnailPreview={setThumbnailPreview}
+                      videoFile={videoFile}
+                      setVideoFile={setVideoFile}
+                      videoPreview={videoPreview}
+                      setVideoPreview={setVideoPreview}
+                      uploading={uploading}
+                      uploadProgress={uploadProgress}
+                      uploadMutation={uploadMutation}
+                    />
                   </div>
                 </motion.div>
               </>

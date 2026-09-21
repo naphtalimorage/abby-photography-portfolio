@@ -92,7 +92,7 @@ const Seasons = () => {
   return (
       <div className="min-h-screen bg-background">
         {/* Hero Section */}
-        <section className="relative min-h-[85vh] md:min-h-screen flex flex-col overflow-hidden">
+        <section className="relative min-h-[70vh] sm:min-h-[80vh] md:min-h-screen flex flex-col overflow-hidden">
           {/* Background Image */}
           <div className="absolute inset-0 z-0">
             <motion.div
@@ -108,7 +108,7 @@ const Seasons = () => {
           </div>
 
           {/* Content - Flex column to push scroll indicator down */}
-          <div className="relative z-10 flex-1 flex flex-col justify-between items-center px-6 md:px-16 py-16 ">
+          <div className="relative z-10 flex-1 flex flex-col justify-between items-center px-4 sm:px-6 md:px-16 py-12 sm:py-16">
             {/* Main content - centered vertically */}
             <div className="flex-1 flex gap-2 items-center justify-center w-full">
               <div className="text-center max-w-4xl mt-12 md:mt-0">

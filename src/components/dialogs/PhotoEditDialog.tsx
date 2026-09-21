@@ -144,21 +144,21 @@ const PhotoEditDialog = ({
 
     return (
         <Dialog open={open} onOpenChange={handleOpenChange}>
-            <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto border border-border/30 p-0 bg-background shadow-2xl">
+            <DialogContent className="max-w-[95vw] sm:max-w-2xl max-h-[90vh] overflow-y-auto border border-border/30 p-0 bg-background shadow-2xl">
                 {/* Header with Gold Accent */}
-                <div className="relative p-8 pb-6 border-b border-border/30">
+                <div className="relative p-4 sm:p-6 md:p-8 pb-4 sm:pb-6 border-b border-border/30">
                     <div className="absolute top-0 left-0 right-0 h-0.5 bg-linear-to-r from-transparent via-savanna-gold to-transparent" />
 
                     <DialogHeader className="text-left">
                         <div className="flex items-center gap-3 mb-2">
-                            <div className="w-10 h-10 flex items-center justify-center border border-savanna-gold/30 bg-savanna-gold/10">
+                            <div className="w-10 h-10 flex items-center justify-center border border-savanna-gold/30 bg-savanna-gold/10 shrink-0">
                                 <ImageIcon className="w-5 h-5 text-savanna-gold" />
                             </div>
-                            <div>
-                                <DialogTitle className="font-display text-2xl md:text-3xl text-foreground font-light">
+                            <div className="min-w-0">
+                                <DialogTitle className="font-display text-xl md:text-2xl lg:text-3xl text-foreground font-light">
                                     Edit <span className="italic text-savanna-gold">Photo</span>
                                 </DialogTitle>
-                                <p className="text-xs text-muted-foreground mt-1">
+                                <p className="text-xs text-muted-foreground mt-1 truncate">
                                     {photo.title}
                                 </p>
                             </div>
@@ -168,28 +168,29 @@ const PhotoEditDialog = ({
 
                 {/* Tabs */}
                 <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                    <div className="px-8 pt-6">
+                    <div className="px-4 sm:px-6 md:px-8 pt-6">
                         <TabsList className="w-full bg-savanna-charcoal/30 p-1 border border-border/30">
                             <TabsTrigger
                                 value="details"
-                                className="flex-1 data-[state=active]:bg-savanna-gold data-[state=active]:text-savanna-charcoal data-[state=active]:font-bold uppercase tracking-[0.2em] text-[10px] py-3 transition-all"
+                                className="flex-1 data-[state=active]:bg-savanna-gold data-[state=active]:text-savanna-charcoal data-[state=active]:font-bold uppercase tracking-[0.15em] sm:tracking-[0.2em] text-[9px] sm:text-[10px] py-2.5 sm:py-3 transition-all"
                             >
                                 Details
                             </TabsTrigger>
                             <TabsTrigger
                                 value="crop"
-                                className="flex-1 data-[state=active]:bg-savanna-gold data-[state=active]:text-savanna-charcoal data-[state=active]:font-bold uppercase tracking-[0.2em] text-[10px] py-3 transition-all"
+                                className="flex-1 data-[state=active]:bg-savanna-gold data-[state=active]:text-savanna-charcoal data-[state=active]:font-bold uppercase tracking-[0.15em] sm:tracking-[0.2em] text-[9px] sm:text-[10px] py-2.5 sm:py-3 transition-all"
                             >
-                                <Crop className="h-3.5 w-3.5 mr-2" />
-                                Crop & Adjust
+                                <Crop className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1 sm:mr-2" />
+                                <span className="hidden sm:inline">Crop & Adjust</span>
+                                <span className="sm:hidden">Crop</span>
                             </TabsTrigger>
                         </TabsList>
                     </div>
 
                     {/* Details Tab */}
-                    <TabsContent value="details" className="px-8 py-6 space-y-6">
+                    <TabsContent value="details" className="px-4 sm:px-6 md:px-8 py-6 space-y-6">
                         {/* Image Preview */}
-                        <div className="relative aspect-4/3 overflow-hidden border border-border/30 group">
+                        <div className="relative aspect-video sm:aspect-4/3 overflow-hidden border border-border/30 group">
                             <img
                                 src={imageUrl}
                                 alt={photo.title}
@@ -265,7 +266,7 @@ const PhotoEditDialog = ({
                     </TabsContent>
 
                     {/* Crop Tab */}
-                    <TabsContent value="crop" className="px-8 py-6 space-y-6">
+                    <TabsContent value="crop" className="px-4 sm:px-6 md:px-8 py-6 space-y-6">
                         {/* Cropper Container */}
                         <div className="relative w-full aspect-square bg-savanna-charcoal/30 border border-border/30 overflow-hidden">
                             <Cropper

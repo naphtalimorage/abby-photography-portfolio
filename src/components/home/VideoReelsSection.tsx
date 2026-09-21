@@ -2,8 +2,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Play,
-  ChevronLeft,
-  ChevronRight,
   ArrowRight,
   Loader2,
   Film,
@@ -12,9 +10,11 @@ import {
   Volume2,
   VolumeX,
   Maximize,
-  Info
+  Info,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
-import { useRef, useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/intergration/supabase/Client.ts';
 import SmartImage from '@/components/common/SmartImage';
@@ -94,7 +94,7 @@ const VideoPlayerModal = ({
     }
   }, [isPlaying]);
 
-  // Auto-play video when loaded
+  // Autoplay video when loaded
   useEffect(() => {
     if (videoRef.current && videoLoaded) {
       videoRef.current.play().catch(err => {
@@ -124,20 +124,23 @@ const VideoPlayerModal = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onClose, onNext, onPrev]);
 
-  // Lock body scroll
+  // Lock body scroll when video modal is open
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = '';
     };
-  }, []);
+  }, [currentIndex]);
 
   const togglePlay = () => {
     if (videoRef.current) {
       if (isPlaying) {
         videoRef.current.pause();
       } else {
-        videoRef.current.play();
+        videoRef.current.play().catch(err => {
+          console.log('Play failed:', err);
+          setIsPlaying(false);
+        });
       }
       setIsPlaying(!isPlaying);
     }
@@ -186,14 +189,14 @@ const VideoPlayerModal = ({
           onMouseMove={handleMouseMove}
       >
         {/* Top Bar - Only show when controls are visible or paused */}
-        <AnimatePresence>
+        <AnimatePresence mode="sync">
           {showControls && (
               <motion.div
                   initial={{ y: -50, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -50, opacity: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between p-4 md:p-6 bg-gradient-to-b from-savanna-charcoal/90 via-savanna-charcoal/50 to-transparent"
+                  className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between p-4 md:p-6 bg-linear-to-b from-savanna-charcoal/90 via-savanna-charcoal/50 to-transparent"
                   onClick={(e) => e.stopPropagation()}
               >
                 {/* Counter */}
@@ -202,7 +205,7 @@ const VideoPlayerModal = ({
                                 {String(currentIndex + 1).padStart(2, '0')}
                             </span>
                   <div className="flex flex-col gap-1">
-                    <div className="w-8 md:w-12 h-[1px] bg-savanna-gold/60" />
+                    <div className="w-8 md:w-12 h-px bg-savanna-gold/60" />
                     <span className="text-savanna-cream/40 text-[10px] md:text-xs tracking-widest">
                                     {String(reels.length).padStart(2, '0')}
                                 </span>
@@ -296,18 +299,18 @@ const VideoPlayerModal = ({
           </div>
 
           {/* Info Panel - Desktop */}
-          <AnimatePresence>
+          <AnimatePresence mode="sync">
             {showInfo && showControls && (
                 <motion.div
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 50 }}
                     transition={{ delay: 0.2, duration: 0.5 }}
-                    className="hidden md:flex w-96 flex-shrink-0 flex-col justify-center pl-8 border-l border-savanna-gold/20"
+                    className="hidden md:flex w-96 shrink-0 flex-col justify-center pl-8 border-l border-savanna-gold/20"
                 >
                   {/* Category */}
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-[1px] bg-savanna-gold" />
+                    <div className="w-10 h-px bg-savanna-gold" />
                     <span className="text-savanna-gold text-[10px] tracking-[0.3em] uppercase font-bold">
                                     {currentReel.subtitle}
                                 </span>
@@ -326,7 +329,7 @@ const VideoPlayerModal = ({
                   {/* Metadata */}
                   <div className="space-y-4 pt-6 border-t border-savanna-gold/20">
                     <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 flex items-center justify-center border border-savanna-gold/30 bg-savanna-gold/5 flex-shrink-0">
+                      <div className="w-8 h-8 flex items-center justify-center border border-savanna-gold/30 bg-savanna-gold/5 shrink-0">
                         <Film size={14} className="text-savanna-gold" />
                       </div>
                       <div>
@@ -340,7 +343,7 @@ const VideoPlayerModal = ({
                     </div>
 
                     <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 flex items-center justify-center border border-savanna-gold/30 bg-savanna-gold/5 flex-shrink-0">
+                      <div className="w-8 h-8 flex items-center justify-center border border-savanna-gold/30 bg-savanna-gold/5 shrink-0">
                         <Maximize size={14} className="text-savanna-gold" />
                       </div>
                       <div>
@@ -384,14 +387,14 @@ const VideoPlayerModal = ({
         </div>
 
         {/* Bottom Controls - Only show when controls are visible or paused */}
-        <AnimatePresence>
+        <AnimatePresence mode="sync">
           {showControls && (
               <motion.div
                   initial={{ y: 50, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: 50, opacity: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="absolute bottom-0 left-0 right-0 z-50 bg-gradient-to-t from-savanna-charcoal/95 via-savanna-charcoal/70 to-transparent"
+                  className="absolute bottom-0 left-0 right-0 z-50 bg-linear-to-t from-savanna-charcoal/95 via-savanna-charcoal/70 to-transparent"
                   onClick={(e) => e.stopPropagation()}
               >
                 {/* Progress Bar */}
@@ -510,7 +513,7 @@ const VideoPlayerModal = ({
                   onClick={(e) => e.stopPropagation()}
               >
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="w-6 h-[1px] bg-savanna-gold" />
+                  <div className="w-6 h-px bg-savanna-gold" />
                   <span className="text-savanna-gold text-[10px] tracking-[0.3em] uppercase font-bold">
                                 {currentReel.subtitle}
                             </span>
@@ -535,10 +538,6 @@ const VideoPlayerModal = ({
 // MAIN VIDEO REELS COMPONENT
 // ============================================
 const VideoReels = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
-  const [activeIndex, setActiveIndex] = useState(0);
   const [selectedReelIndex, setSelectedReelIndex] = useState<number | null>(null);
 
   // Fetch reels from Supabase
@@ -566,43 +565,6 @@ const VideoReels = () => {
     staleTime: 5 * 60 * 1000,
   });
 
-  const checkScroll = useCallback(() => {
-    if (scrollRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-      setCanScrollLeft(scrollLeft > 0);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
-
-      const cardWidth = window.innerWidth < 768 ? 240 : 340;
-      const newIndex = Math.round(scrollLeft / cardWidth);
-      setActiveIndex(Math.min(newIndex, (reels?.length || 0) - 1));
-    }
-  }, [reels]);
-
-  useEffect(() => {
-    checkScroll();
-    window.addEventListener('resize', checkScroll);
-    return () => window.removeEventListener('resize', checkScroll);
-  }, [checkScroll]);
-
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollRef.current) {
-      const scrollAmount = direction === 'left' ? -360 : 360;
-      scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-      setTimeout(checkScroll, 300);
-    }
-  };
-
-  const scrollToIndex = (index: number) => {
-    if (scrollRef.current) {
-      const cardWidth = window.innerWidth < 768 ? 240 : 340;
-      scrollRef.current.scrollTo({
-        left: index * cardWidth,
-        behavior: 'smooth'
-      });
-      setTimeout(checkScroll, 300);
-    }
-  };
-
   const openReel = (index: number) => {
     setSelectedReelIndex(index);
   };
@@ -626,8 +588,8 @@ const VideoReels = () => {
   // Loading State
   if (isLoading) {
     return (
-        <section className="relative py-16 md:py-32 bg-background overflow-hidden">
-          <div className="flex items-center justify-center min-h-[400px]">
+        <section className="relative py-12 sm:py-16 md:py-24 lg:py-32 bg-background overflow-hidden">
+          <div className="flex items-center justify-center min-h-100">
             <div className="flex flex-col items-center gap-4">
               <Loader2 className="w-10 h-10 text-savanna-gold animate-spin" />
               <p className="text-muted-foreground text-sm tracking-widest uppercase">Loading Reels</p>
@@ -640,8 +602,8 @@ const VideoReels = () => {
   // Error State
   if (error) {
     return (
-        <section className="relative py-16 md:py-32 bg-background overflow-hidden">
-          <div className="flex items-center justify-center min-h-[400px] px-6">
+        <section className="relative py-12 sm:py-16 md:py-24 lg:py-32 bg-background overflow-hidden">
+          <div className="flex items-center justify-center min-h-100 px-6">
             <div className="text-center max-w-md">
               <div className="w-16 h-16 mx-auto mb-4 border-2 border-error/30 bg-error/5 flex items-center justify-center">
                 <Film className="w-8 h-8 text-error" />
@@ -659,8 +621,8 @@ const VideoReels = () => {
   // Empty State
   if (!reels || reels.length === 0) {
     return (
-        <section className="relative py-16 md:py-32 bg-background overflow-hidden">
-          <div className="flex items-center justify-center min-h-[400px] px-6">
+        <section className="relative py-12 sm:py-16 md:py-24 lg:py-32 bg-background overflow-hidden">
+          <div className="flex items-center justify-center min-h-100 px-6">
             <div className="text-center max-w-md">
               <div className="w-16 h-16 mx-auto mb-4 border-2 border-border/30 flex items-center justify-center">
                 <Film className="w-8 h-8 text-muted-foreground/30" />
@@ -676,211 +638,204 @@ const VideoReels = () => {
   }
 
   return (
-      <section className="relative py-16 md:py-32 bg-background overflow-hidden pb-24 md:pb-12">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_var(--savanna-gold)_1px,_transparent_1px)] bg-[length:40px_40px]" />
+      <section className="relative py-16 sm:py-20 md:py-28 lg:py-36 bg-savanna-charcoal overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-linear-to-br from-savanna-charcoal via-savanna-charcoal/95 to-savanna-charcoal/90" />
+          <div className="absolute inset-0 opacity-[0.03]">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,var(--savanna-gold)_1px,transparent_1px)]" />
+          </div>
+          {/* Glowing orbs */}
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-savanna-gold/5 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-savanna-gold/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
         </div>
 
-        <div className="relative">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16">
           {/* Header */}
-          {/* Header */}
-          <div className="px-5 md:px-16 lg:px-[64px] mb-8 md:mb-16">
-            <div className="grid md:grid-cols-12">
-              <div className="md:col-span-8 md:col-start-3 text-center">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                >
-                  <div className="flex items-center justify-center gap-4 mb-4 md:mb-6">
-                    <div className="w-8 md:w-12 h-[1px] bg-savanna-gold" />
-                    <span className="text-savanna-gold text-[10px] md:text-xs tracking-[0.4em] uppercase font-medium">
-                                       Field Dispatches
-                                    </span>
-                    <div className="w-8 md:w-12 h-[1px] bg-savanna-gold" />
-                  </div>
-
-                  <h2 className="font-display gap-2 text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light text-foreground leading-[0.95]">
-                    <span className="">Live from</span> {""}
-                    <span className=" italic text-savanna-gold mt-2">
-                                      the Mara
-                                    </span>
-                  </h2>
-
-                  <p className="mt-4 md:mt-6 text-muted-foreground text-xs md:text-base max-w-md mx-auto leading-relaxed">
-                    Real-time pulses of the wild — raw, unfiltered moments captured in the heart of Africa.
-                  </p>
-                </motion.div>
+          <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="mb-12 md:mb-16"
+          >
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+              <div>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-0.5 bg-linear-to-r from-savanna-gold to-transparent" />
+                  <span className="text-savanna-gold text-xs tracking-[0.4em] uppercase font-bold">
+                    Cinematic Archives
+                  </span>
+                </div>
+                <h2 className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl text-savanna-cream font-light leading-[0.9]">
+                  <span className="block">Wild</span>
+                  <span className="block italic text-savanna-gold">Moments</span>
+                </h2>
+              </div>
+              <div className="hidden md:block text-right">
+                <p className="text-savanna-cream/60 text-sm max-w-xs leading-relaxed">
+                  Experience the untamed beauty of Africa through our lens. Each reel tells a story of the wild.
+                </p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Reels Container */}
-          <div
-              ref={scrollRef}
-              onScroll={checkScroll}
-              className="flex overflow-x-auto hide-scrollbar gap-3 md:gap-6 px-5 md:px-16 lg:px-[64px] pb-4 snap-x snap-mandatory"
-          >
-            {reels.map((reel, index) => (
+          {/* Featured Reel - Large Hero Card */}
+          {reels.length > 0 && (
+              <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  className="mb-8 md:mb-12 relative group cursor-pointer"
+                  onClick={() => openReel(0)}
+              >
+                <div className="relative aspect-video md:aspect-1/9 overflow-hidden rounded-lg">
+                  {/* Image */}
+                  <SmartImage
+                      src={reels[0].imageUrl}
+                      alt={reels[0].alt}
+                      loading="eager"
+                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                  />
+
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-linear-to-t from-savanna-charcoal via-savanna-charcoal/50 to-transparent opacity-90" />
+                  <div className="absolute inset-0 bg-linear-to-r from-savanna-charcoal/80 via-transparent to-transparent opacity-60" />
+
+                  {/* Content */}
+                  <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-10 lg:p-16">
+                    <div className="max-w-2xl">
+                      {/* Category Badge */}
+                      <motion.div
+                          initial={{ opacity: 0, x: -20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: 0.4 }}
+                          className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-savanna-gold/10 backdrop-blur-md border border-savanna-gold/30 rounded-full"
+                      >
+                        <div className="w-2 h-2 bg-savanna-gold rounded-full animate-pulse" />
+                        <span className="text-savanna-gold text-xs tracking-[0.2em] uppercase font-bold">
+                          {reels[0].subtitle}
+                        </span>
+                      </motion.div>
+
+                      {/* Title */}
+                      <motion.h3
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: 0.5 }}
+                          className="font-display text-2xl md:text-4xl lg:text-5xl text-savanna-cream font-light leading-tight mb-4"
+                      >
+                        {reels[0].title}
+                      </motion.h3>
+
+                      {/* Play Button */}
+                      <motion.div
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: 0.6 }}
+                          className="inline-flex items-center gap-3 px-6 py-3 bg-savanna-gold text-savanna-charcoal hover:bg-savanna-gold/90 transition-all duration-300 rounded-full group-hover:scale-105"
+                      >
+                        <Play size={18} className="fill-current" />
+                        <span className="text-xs tracking-[0.2em] uppercase font-bold">Watch Now</span>
+                      </motion.div>
+                    </div>
+                  </div>
+
+                  {/* Duration Badge */}
+                  <div className="absolute top-4 md:top-6 right-4 md:right-6 px-3 py-1.5 bg-savanna-charcoal/80 backdrop-blur-md border border-savanna-gold/30 rounded">
+                    <span className="text-savanna-cream text-xs tracking-widest font-medium">
+                      {reels[0].duration}
+                    </span>
+                  </div>
+
+                  {/* Play Overlay on Hover */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-savanna-charcoal/30">
+                    <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-savanna-gold/90 backdrop-blur-sm flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform duration-500">
+                      <Play size={32} className="text-savanna-charcoal fill-current ml-1" />
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+          )}
+
+          {/* Grid of Smaller Reels */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
+            {reels.slice(1).map((reel, index) => (
                 <motion.div
                     key={reel.id}
-                    className="flex-none w-[180px] sm:w-[200px] md:w-[220px] lg:w-[240px] aspect-[9/16] relative group cursor-pointer overflow-hidden snap-start"
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    onClick={() => openReel(index)}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.6, delay: Math.min(index * 0.08, 0.5) }}
+                    className="relative group cursor-pointer overflow-hidden rounded-lg aspect-9/16"
+                    onClick={() => openReel(index + 1)}
                 >
                   {/* Image */}
-                  <div className="absolute inset-0 overflow-hidden bg-savanna-charcoal/10">
+                  <div className="absolute inset-0">
                     <SmartImage
                         src={reel.imageUrl}
                         alt={reel.alt}
                         loading="lazy"
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 group-active:scale-100"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                   </div>
 
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-savanna-charcoal via-savanna-charcoal/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-linear-to-t from-savanna-charcoal via-savanna-charcoal/60 to-transparent opacity-90 group-hover:opacity-95 transition-opacity duration-300" />
 
-                  {/* Duration Badge */}
-                  <div className="absolute top-3 md:top-4 right-3 md:right-4 px-2 md:px-3 py-1 bg-savanna-charcoal/60 backdrop-blur-sm border border-savanna-gold/20">
-                                <span className="text-savanna-cream text-[9px] md:text-[10px] tracking-widest font-medium">
-                                    {reel.duration}
-                                </span>
-                  </div>
+                  {/* Content */}
+                  <div className="absolute inset-0 flex flex-col justify-end p-3 sm:p-4">
+                    {/* Duration */}
+                    <div className="absolute top-2 sm:top-3 right-2 sm:right-3 px-1.5 sm:px-2 py-0.5 sm:py-1 bg-savanna-charcoal/70 backdrop-blur-sm border border-savanna-gold/20 rounded text-[9px] sm:text-[10px] text-savanna-cream tracking-widest">
+                      {reel.duration}
+                    </div>
 
-                  {/* Number */}
-                  <div className="absolute top-3 md:top-4 left-3 md:left-4">
-                                <span className="text-savanna-gold/60 text-[10px] md:text-xs tracking-widest font-medium">
-                                    {String(index + 1).padStart(2, '0')}
-                                </span>
-                  </div>
-
-                  {/* Bottom Content */}
-                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6">
                     {/* Play Button */}
-                    <motion.div
-                        className="mb-3 md:mb-4"
-                        initial={{ scale: 0.8, opacity: 0 }}
-                        whileInView={{ scale: 1, opacity: 1 }}
-                        transition={{ delay: 0.3 + index * 0.1 }}
-                    >
-                      <div className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border border-savanna-gold/40 bg-savanna-gold/10 backdrop-blur-sm group-hover:bg-savanna-gold/20 group-hover:border-savanna-gold group-active:bg-savanna-gold/30 transition-all duration-300">
-                        <Play size={18} className="text-savanna-gold fill-savanna-gold/20 ml-0.5 md:ml-1" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                      <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-savanna-gold/90 backdrop-blur-sm flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform duration-300">
+                        <Play size={16} className="text-savanna-charcoal fill-current ml-0.5" />
                       </div>
-                    </motion.div>
+                    </div>
 
                     {/* Subtitle */}
-                    <div className="flex items-center gap-2 mb-1 md:mb-2">
-                      <div className="w-4 md:w-6 h-[1px] bg-savanna-gold" />
-                      <span className="text-savanna-gold text-[9px] md:text-[10px] tracking-[0.2em] uppercase font-medium">
-                                        {reel.subtitle}
-                                    </span>
+                    <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">
+                      <div className="w-2 sm:w-3 h-px bg-savanna-gold" />
+                      <span className="text-savanna-gold text-[8px] sm:text-[9px] tracking-[0.2em] uppercase font-bold">
+                        {reel.subtitle}
+                      </span>
                     </div>
 
                     {/* Title */}
-                    <h3 className="font-display text-lg md:text-2xl text-savanna-cream font-light leading-tight line-clamp-2">
+                    <h4 className="font-display text-xs sm:text-sm md:text-base text-savanna-cream font-light leading-tight line-clamp-2">
                       {reel.title}
-                    </h3>
-
-                    {/* Watch indicator */}
-                    <div className="hidden md:flex mt-4 items-center gap-2 text-savanna-cream/60 text-xs tracking-widest uppercase opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                      <span>Watch Now</span>
-                      <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
-                    </div>
+                    </h4>
                   </div>
 
-                  {/* Corner Accent */}
-                  <div className="hidden md:block absolute top-0 left-0 w-0 h-0 border-t-[30px] border-l-[30px] border-t-transparent border-l-savanna-gold/0 group-hover:border-l-savanna-gold/30 transition-all duration-500" />
+                  {/* Border Glow on Hover */}
+                  <div className="absolute inset-0 border-2 border-transparent group-hover:border-savanna-gold/30 transition-colors duration-300 rounded-lg pointer-events-none" />
                 </motion.div>
             ))}
           </div>
 
-          {/* Mobile Scroll Indicators */}
-          <div className="md:hidden flex justify-center gap-2 mt-6 px-5">
-            {reels.map((_, index) => (
-                <button
-                    key={index}
-                    onClick={() => scrollToIndex(index)}
-                    className={`transition-all duration-300 ${
-                        activeIndex === index
-                            ? 'w-8 h-1 bg-savanna-gold'
-                            : 'w-1 h-1 bg-savanna-gold/30'
-                    }`}
-                    aria-label={`Go to reel ${index + 1}`}
-                />
-            ))}
-          </div>
-
-          {/* Mobile Navigation */}
-          <div className="md:hidden flex justify-between items-center gap-4 mt-6 px-5">
+          {/* View-all Button */}
+          <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="mt-12 md:mt-16 text-center"
+          >
             <button
-                onClick={() => scroll('left')}
-                disabled={!canScrollLeft}
-                className={`flex-1 flex items-center justify-center gap-2 py-3 border transition-all duration-300 active:scale-95 ${
-                    canScrollLeft
-                        ? 'border-savanna-gold/30 text-foreground dark:text-savanna-cream/80 hover:border-savanna-gold hover:bg-savanna-gold/5'
-                        : 'border-border/30 text-muted-foreground/30 cursor-not-allowed'
-                }`}
+                className="inline-flex items-center gap-3 px-8 py-4 border border-savanna-gold/30 text-savanna-gold hover:bg-savanna-gold hover:text-savanna-charcoal transition-all duration-300 rounded-full text-xs tracking-[0.2em] uppercase font-bold group"
             >
-              <ChevronLeft size={16} strokeWidth={1.5} />
-              <span className="text-[10px] uppercase tracking-widest">Previous</span>
+              <span>View All Reels</span>
+              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </button>
-
-            <button
-                onClick={() => scroll('right')}
-                disabled={!canScrollRight}
-                className={`flex-1 flex items-center justify-center gap-2 py-3 border transition-all duration-300 active:scale-95 ${
-                    canScrollRight
-                        ? 'border-savanna-gold/30 text-foreground dark:text-savanna-cream/80 hover:border-savanna-gold hover:bg-savanna-gold/5'
-                        : 'border-border/30 text-muted-foreground/30 cursor-not-allowed'
-                }`}
-            >
-              <span className="text-[10px] uppercase tracking-widest">Next</span>
-              <ChevronRight size={16} strokeWidth={1.5} />
-            </button>
-          </div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex md:col-span-4 md:justify-end items-end gap-4 mt-8 px-16 lg:px-[64px]">
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="flex items-center gap-4"
-            >
-              <button
-                  onClick={() => scroll('left')}
-                  disabled={!canScrollLeft}
-                  className={`group w-12 h-12 flex items-center justify-center border transition-all duration-300 ${
-                      canScrollLeft
-                          ? 'border-savanna-gold/30 text-savanna-cream/80 hover:text-savanna-gold hover:border-savanna-gold hover:bg-savanna-gold/10'
-                          : 'border-border/30 text-muted-foreground/30 cursor-not-allowed'
-                  }`}
-                  aria-label="Previous reel"
-              >
-                <ChevronLeft size={20} strokeWidth={1.5} />
-              </button>
-
-              <button
-                  onClick={() => scroll('right')}
-                  disabled={!canScrollRight}
-                  className={`group w-12 h-12 flex items-center justify-center border transition-all duration-300 ${
-                      canScrollRight
-                          ? 'border-savanna-gold/30 text-savanna-cream/80 hover:text-savanna-gold hover:border-savanna-gold hover:bg-savanna-gold/10'
-                          : 'border-border/30 text-muted-foreground/30 cursor-not-allowed'
-                  }`}
-                  aria-label="Next reel"
-              >
-                <ChevronRight size={20} strokeWidth={1.5} />
-              </button>
-            </motion.div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Video Player Modal */}
