@@ -60,7 +60,7 @@ const Contact = () => {
               <span className="inline-block text-savanna-gold text-sm tracking-[0.4em] uppercase font-medium mb-6">
                 Connect With Us
               </span>
-              <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-savanna-cream leading-tight mb-6">
+              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-savanna-cream leading-tight mb-6">
                 Start Your
                 <span className="block italic text-savanna-gold mt-2">African Adventure</span>
               </h2>
@@ -79,16 +79,16 @@ const Contact = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                  className="group flex items-center gap-4 p-5 bg-savanna-cream/5 backdrop-blur-sm border border-savanna-gold/20 hover:border-savanna-gold/50 hover:bg-savanna-gold/10 transition-all duration-300"
+                  className="group flex items-center gap-4 p-4 sm:p-5 bg-savanna-cream/5 backdrop-blur-sm border border-savanna-gold/20 hover:border-savanna-gold/50 hover:bg-savanna-gold/10 transition-all duration-300 min-w-0"
                 >
                   <div className="w-14 h-14 flex items-center justify-center bg-savanna-gold/10 group-hover:bg-savanna-gold/20 transition-all duration-300 flex-shrink-0">
                     <item.icon className="w-6 h-6 text-savanna-gold" />
                   </div>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <p className="text-savanna-cream/50 text-xs tracking-widest uppercase mb-1">
                       {item.label}
                     </p>
-                    <p className="text-savanna-cream text-base group-hover:text-savanna-gold transition-colors duration-300">
+                    <p className="text-savanna-cream text-sm sm:text-base group-hover:text-savanna-gold transition-colors duration-300 break-all">
                       {item.value}
                     </p>
                   </div>
@@ -118,13 +118,13 @@ const Contact = () => {
 
           {/* Right Side - Form */}
           <motion.div
-            className="lg:col-span-1 py-12 lg:py-0"
+            className="lg:col-span-1 py-8 sm:py-12 lg:py-0"
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <div className="bg-savanna-cream/5 backdrop-blur-md border border-savanna-gold/20 p-8 md:p-10 lg:p-12">
+            <div className="bg-savanna-cream/5 backdrop-blur-md border border-savanna-gold/20 p-5 sm:p-8 md:p-10 lg:p-12">
               <div className="mb-8">
                 <h3 className="font-display text-2xl text-savanna-cream mb-2">Send a Message</h3>
                 <p className="text-savanna-cream/60 text-sm">Fill out the form below and we'll get back to you within 24 hours.</p>

@@ -214,11 +214,19 @@
   * {
     @apply border-border outline-ring/50;
     }
-  body {
-    @apply bg-background text-foreground;
-    }
   html {
-    @apply font-sans;
+    @apply font-sans overflow-x-hidden;
+    -webkit-text-size-adjust: 100%;
+    }
+  body {
+    @apply bg-background text-foreground overflow-x-hidden;
+    overflow-wrap: anywhere;
+    }
+  img, video {
+    max-width: 100%;
+    }
+  input, textarea, select {
+    font-size: 16px;
     }
   .material-symbols-outlined {
     font-family: 'Material Symbols Outlined';
@@ -329,11 +337,13 @@
   }
   
   /* Hide scrollbar utilities */
-  .hide-scrollbar {
+  .hide-scrollbar,
+  .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  .hide-scrollbar::-webkit-scrollbar {
+  .hide-scrollbar::-webkit-scrollbar,
+  .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
   

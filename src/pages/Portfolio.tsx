@@ -107,7 +107,7 @@ const Lightbox = ({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-50 bg-savanna-charcoal/98 backdrop-blur-2xl overflow-hidden"
+          className="fixed inset-0 z-[80] bg-savanna-charcoal/98 backdrop-blur-2xl overflow-hidden"
           onClick={onClose}
       >
         {/* Top Bar - Counter & Controls */}
@@ -121,7 +121,7 @@ const Lightbox = ({
           {/* Left: Counter */}
           <div className="flex items-center gap-4">
             <div className="flex items-baseline gap-2">
-                        <span className="text-4xl md:text-5xl font-display text-savanna-gold font-light">
+                        <span className="text-2xl sm:text-4xl md:text-5xl font-display text-savanna-gold font-light">
                             {String(currentIndex + 1).padStart(2, '0')}
                         </span>
               <div className="flex flex-col gap-1">
@@ -174,7 +174,7 @@ const Lightbox = ({
 
         {/* Main Content Area */}
         <div
-            className="relative w-full h-full flex flex-col md:flex-row items-center justify-center pt-20 pb-28 md:pt-20 md:pb-20 px-4 md:px-20"
+            className="relative w-full h-full flex flex-col md:flex-row items-center justify-center pt-16 pb-32 md:pt-20 md:pb-20 px-3 sm:px-4 md:px-20"
             onClick={(e) => e.stopPropagation()}
         >
           {/* Image Container - Swipeable on Mobile */}
@@ -427,7 +427,7 @@ const Lightbox = ({
                   animate={{ y: 0 }}
                   exit={{ y: '100%' }}
                   transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-                  className="md:hidden absolute bottom-24 left-0 right-0 bg-savanna-charcoal/95 backdrop-blur-xl border-t border-savanna-gold/20 p-5 max-h-[40vh] overflow-y-auto"
+                  className="md:hidden absolute bottom-24 left-0 right-0 bg-savanna-charcoal/95 backdrop-blur-xl border-t border-savanna-gold/20 p-4 sm:p-5 max-h-[32vh] overflow-y-auto"
                   onClick={(e) => e.stopPropagation()}
               >
                 {/* Category */}
@@ -439,7 +439,7 @@ const Lightbox = ({
                 </div>
 
                 {/* Title */}
-                <h3 className="font-display text-2xl text-savanna-cream font-light mb-4">
+                <h3 className="font-display text-xl sm:text-2xl text-savanna-cream font-light mb-4">
                   {currentItem.title}
                 </h3>
 
@@ -556,7 +556,7 @@ const Portfolio = () => {
       <div className="min-h-screen bg-background">
         {/* Header Section */}
 
-        <section className="pt-16 sm:pt-20 pb-8 sm:pb-12 md:pt-24 md:pb-16 flex items-center justify-center">
+        <section className="pt-10 sm:pt-16 pb-8 sm:pb-12 md:pt-24 md:pb-16 px-4 sm:px-6 flex items-center justify-center">
           <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -565,25 +565,25 @@ const Portfolio = () => {
           >
             <div className="flex items-center gap-4 mb-6 justify-center ">
               <div className="w-12 h-px bg-savanna-gold" />
-              <span className="text-savanna-gold text-sm tracking-[0.4em] uppercase font-medium">
+              <span className="text-savanna-gold text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.4em] uppercase font-medium">
                                  Portfolio
                         </span>
               <div className="w-12 h-px bg-savanna-gold" />
             </div>
 
-            <h1 className=" flex flex-col  items-center justify-center font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-savanna-cream mb-8 leading-[0.95]">
+            <h1 className="flex flex-col items-center justify-center font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-savanna-cream mb-6 sm:mb-8 leading-[1.05] sm:leading-[0.95]">
               <span className="block">The Archive</span>
               <span className="block italic text-savanna-gold mt-2">Exhibition</span>
             </h1>
 
-            <p className="text-muted-foreground text-base md:text-lg max-w-2xl leading-relaxed mx-auto md:mx-0">
+            <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl leading-relaxed mx-auto text-center px-1">
               A visual journey through the soul of the Maasai Mara. From the thunderous Great Migration to the silent gaze of a leopard, every frame captures a moment of raw, untamed elegance.
             </p>
           </motion.div>
         </section>
 
         {/* Category Filter */}
-        <section className="px-6 md:px-16 lg:px-16 max-w-[1600px] mx-auto mb-12 ">
+        <section className="px-4 sm:px-6 md:px-16 lg:px-16 max-w-[1600px] mx-auto mb-8 sm:mb-12 ">
           <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -597,7 +597,7 @@ const Portfolio = () => {
                       onClick={() => setActiveCategory(category)}
                       className={`relative
                        whitespace-nowrap
-                    px-6 py-3
+                    px-4 sm:px-6 py-3
                     border
                     transition-all duration-300
                     text-sm tracking-wider uppercase font-medium ${
@@ -621,7 +621,7 @@ const Portfolio = () => {
         </section>
 
         {/* Masonry Gallery */}
-        <section className="px-6 md:px-16 lg:px-[64px] max-w-[1600px] mx-auto pb-24">
+        <section className="px-4 sm:px-6 md:px-16 lg:px-[64px] max-w-[1600px] mx-auto pb-28 md:pb-24">
           {filteredItems.length === 0 ? (
               <motion.div
                   key={activeCategory}

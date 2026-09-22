@@ -22,7 +22,7 @@ export const useAdminProfile = () => {
             console.log('Admin profile data:', data);
             return data;
         },
-        staleTime: 30 * 1000, // 30 seconds - reduced to show updates faster
+        staleTime: 0, // Always refetch when invalidated
         retry: 1,
     });
 };

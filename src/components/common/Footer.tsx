@@ -28,7 +28,7 @@ const Footer = () => {
       {/* Faint background texture */}
       <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_50%_50%,_var(--savanna-gold)_1px,_transparent_1px)] bg-[length:24px_24px]" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-[64px] pt-12 sm:pt-16 pb-6 sm:pb-8 md:pb-12">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-[64px] pt-12 sm:pt-16 pb-28 sm:pb-28 md:pb-12">
         {/* Main footer grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-8 sm:gap-10 md:gap-8 mb-8 sm:mb-12">
           {/* Brand column */}
@@ -49,7 +49,7 @@ const Footer = () => {
                 <Mail size={16} className="text-savanna-gold shrink-0" />
                 <a
                   href="mailto:abigaelnaisianoi605@gmail.com"
-                  className="hover:text-savanna-gold transition-colors"
+                  className="hover:text-savanna-gold transition-colors break-all"
                 >
                   abigaelnaisianoi605@gmail.com
                 </a>

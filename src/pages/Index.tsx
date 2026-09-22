@@ -6,9 +6,9 @@ import { Outlet } from "react-router-dom";
 
 const Index = () => {
     return(
-        <div className="min-h-screen bg-background text-on-background font-['Inter']">
+        <div className="min-h-screen bg-background text-on-background overflow-x-hidden">
             <Navbar/>
-            <main className="pt-14 sm:pt-16 md:pt-20">
+            <main className="pt-16 md:pt-20">
                 <Outlet/>
             </main>
             <BottomNav/>

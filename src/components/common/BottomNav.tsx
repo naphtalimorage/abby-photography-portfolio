@@ -18,7 +18,7 @@ const BottomNav = () => {
 
         {/* Navigation container with glass effect */}
         <div className="bg-background/80 backdrop-blur-2xl border-t border-savanna-gold/10 shadow-[0_-8px_30px_rgba(0,0,0,0.2)]">
-          <div className="flex justify-around items-center h-20 px-4 pb-[env(safe-area-inset-bottom)]">
+          <div className="flex justify-around items-center min-h-16 h-[calc(4.5rem+env(safe-area-inset-bottom))] px-2 sm:px-4 pb-[env(safe-area-inset-bottom)]">
             {navItems.map((item) => (
                 <NavLink
                     key={item.path}

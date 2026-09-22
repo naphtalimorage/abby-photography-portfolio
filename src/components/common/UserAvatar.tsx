@@ -1,5 +1,5 @@
 // src/components/common/UserAvatar.tsx
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -41,13 +41,26 @@ export const UserAvatar = ({
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
+  const lastAvatarUrlRef = useRef<string | undefined>(undefined);
+  const [cacheBustKey, setCacheBustKey] = useState(0);
 
   const avatarUrl = profile?.avatar_url ?? undefined;
   const displayName = profile?.full_name ?? null;
 
+  // Add cache-busting only when avatar URL changes
+  useEffect(() => {
+    if (avatarUrl && avatarUrl !== lastAvatarUrlRef.current) {
+      lastAvatarUrlRef.current = avatarUrl;
+      setCacheBustKey(Date.now());
+    }
+  }, [avatarUrl]);
+
+  const avatarUrlWithCache = avatarUrl ? `${avatarUrl}?t=${cacheBustKey}` : undefined;
+
   // Debug logging
   console.log('UserAvatar - profile:', profile);
   console.log('UserAvatar - avatarUrl:', avatarUrl);
+  console.log('UserAvatar - avatarUrlWithCache:', avatarUrlWithCache);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -144,7 +157,7 @@ export const UserAvatar = ({
   const avatarElement = (
       <Avatar className={`${getSize()} border-2 border-savanna-gold/20 transition-all ${interactive ? 'group-hover:border-savanna-gold/60 cursor-pointer' : ''}`}>
         <AvatarImage
-          src={avatarUrl}
+          src={avatarUrlWithCache}
           alt="Avatar"
           onLoad={() => console.log('Avatar image loaded successfully')}
           onError={(e) => console.error('Avatar image failed to load:', e)}

@@ -184,7 +184,7 @@ const VideoPlayerModal = ({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-50 bg-savanna-charcoal/98 backdrop-blur-2xl overflow-hidden"
+          className="fixed inset-0 z-[80] bg-savanna-charcoal/98 backdrop-blur-2xl overflow-hidden"
           onClick={onClose}
           onMouseMove={handleMouseMove}
       >
@@ -509,7 +509,7 @@ const VideoPlayerModal = ({
                   animate={{ y: 0 }}
                   exit={{ y: '100%' }}
                   transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-                  className="md:hidden absolute bottom-32 left-0 right-0 bg-savanna-charcoal/95 backdrop-blur-xl border-t border-savanna-gold/20 p-5 max-h-[30vh] overflow-y-auto"
+                  className="md:hidden absolute bottom-28 left-0 right-0 bg-savanna-charcoal/95 backdrop-blur-xl border-t border-savanna-gold/20 p-4 sm:p-5 max-h-[28vh] overflow-y-auto"
                   onClick={(e) => e.stopPropagation()}
               >
                 <div className="flex items-center gap-3 mb-2">
@@ -638,7 +638,7 @@ const VideoReels = () => {
   }
 
   return (
-      <section className="relative py-16 sm:py-20 md:py-28 lg:py-36 bg-savanna-charcoal overflow-hidden">
+      <section id={"reels"} className="relative py-16 sm:py-20 md:py-28 lg:py-36 bg-savanna-charcoal overflow-hidden">
         {/* Animated Background */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-linear-to-br from-savanna-charcoal via-savanna-charcoal/95 to-savanna-charcoal/90" />
@@ -656,28 +656,45 @@ const VideoReels = () => {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="mb-12 md:mb-16"
+              transition={{ duration: 1, ease: "easeOut" }}
+              className="mb-12 md:mb-16 text-center"
           >
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-              <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-0.5 bg-linear-to-r from-savanna-gold to-transparent" />
-                  <span className="text-savanna-gold text-xs tracking-[0.4em] uppercase font-bold">
-                    Cinematic Archives
-                  </span>
-                </div>
-                <h2 className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl text-savanna-cream font-light leading-[0.9]">
-                  <span className="block">Wild</span>
-                  <span className="block italic text-savanna-gold">Moments</span>
-                </h2>
-              </div>
-              <div className="hidden md:block text-right">
-                <p className="text-savanna-cream/60 text-sm max-w-xs leading-relaxed">
-                  Experience the untamed beauty of Africa through our lens. Each reel tells a story of the wild.
-                </p>
-              </div>
-            </div>
+            {/* Category Badge */}
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="inline-flex items-center gap-3 mb-6 px-5 py-2.5 bg-savanna-gold/10 backdrop-blur-lg border border-savanna-gold/30 rounded-full"
+            >
+              <div className="w-2 h-2 bg-savanna-gold rounded-full animate-pulse" />
+              <span className="text-savanna-gold text-xs sm:text-sm tracking-[0.3em] uppercase font-semibold">
+                Cinematic Archives
+              </span>
+            </motion.div>
+
+            {/* Title */}
+            <motion.h2
+                initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
+                className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-savanna-cream font-light leading-[1.05] mb-6 tracking-tight"
+            >
+              <span className="block">Wild</span>
+              <span className="block italic text-savanna-gold">Moments</span>
+            </motion.h2>
+
+            {/* Description */}
+            <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="text-savanna-cream/60 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed"
+            >
+              Experience the untamed beauty of Africa through our lens. Each reel tells a story of the wild.
+            </motion.p>
           </motion.div>
 
           {/* Featured Reel - Large Hero Card */}
@@ -690,7 +707,7 @@ const VideoReels = () => {
                   className="mb-8 md:mb-12 relative group cursor-pointer"
                   onClick={() => openReel(0)}
               >
-                <div className="relative aspect-video md:aspect-1/9 overflow-hidden rounded-lg">
+                <div className="relative aspect-[4/5] sm:aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-lg">
                   {/* Image */}
                   <SmartImage
                       src={reels[0].imageUrl}
@@ -700,47 +717,49 @@ const VideoReels = () => {
                   />
 
                   {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-linear-to-t from-savanna-charcoal via-savanna-charcoal/50 to-transparent opacity-90" />
-                  <div className="absolute inset-0 bg-linear-to-r from-savanna-charcoal/80 via-transparent to-transparent opacity-60" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-savanna-charcoal/95 via-savanna-charcoal/40 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-savanna-charcoal/30 via-transparent to-savanna-charcoal/95" />
 
-                  {/* Content */}
-                  <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-10 lg:p-16">
-                    <div className="max-w-2xl">
+                  {/* Content - Centered */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-6 md:p-10 lg:p-16">
+                    <div className="text-center max-w-4xl">
                       {/* Category Badge */}
                       <motion.div
-                          initial={{ opacity: 0, x: -20 }}
-                          whileInView={{ opacity: 1, x: 0 }}
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true }}
-                          transition={{ delay: 0.4 }}
-                          className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-savanna-gold/10 backdrop-blur-md border border-savanna-gold/30 rounded-full"
+                          transition={{ duration: 0.8, delay: 0.3 }}
+                          className="inline-flex items-center gap-3 mb-6 px-5 py-2.5 bg-savanna-gold/10 backdrop-blur-lg border border-savanna-gold/40 rounded-full"
                       >
                         <div className="w-2 h-2 bg-savanna-gold rounded-full animate-pulse" />
-                        <span className="text-savanna-gold text-xs tracking-[0.2em] uppercase font-bold">
+                        <span className="text-savanna-gold text-xs sm:text-sm tracking-[0.3em] uppercase font-semibold">
                           {reels[0].subtitle}
                         </span>
                       </motion.div>
 
                       {/* Title */}
                       <motion.h3
-                          initial={{ opacity: 0, y: 20 }}
-                          whileInView={{ opacity: 1, y: 0 }}
+                          initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                          whileInView={{ opacity: 1, y: 0, scale: 1 }}
                           viewport={{ once: true }}
-                          transition={{ delay: 0.5 }}
-                          className="font-display text-2xl md:text-4xl lg:text-5xl text-savanna-cream font-light leading-tight mb-4"
+                          transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
+                          className="font-display text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-savanna-cream font-light leading-[1.1] mb-4 sm:mb-6 tracking-tight line-clamp-3"
                       >
-                        {reels[0].title}
+                        <span className="block">{reels[0].title}</span>
                       </motion.h3>
 
                       {/* Play Button */}
                       <motion.div
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true }}
-                          transition={{ delay: 0.6 }}
-                          className="inline-flex items-center gap-3 px-6 py-3 bg-savanna-gold text-savanna-charcoal hover:bg-savanna-gold/90 transition-all duration-300 rounded-full group-hover:scale-105"
+                          transition={{ duration: 0.8, delay: 0.5 }}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="inline-flex items-center gap-3 sm:gap-4 px-5 sm:px-8 py-3 sm:py-4 bg-savanna-gold text-savanna-charcoal hover:bg-savanna-gold/90 transition-all duration-300 rounded-full shadow-lg shadow-savanna-gold/20"
                       >
-                        <Play size={18} className="fill-current" />
-                        <span className="text-xs tracking-[0.2em] uppercase font-bold">Watch Now</span>
+                        <Play size={20} className="fill-current" />
+                        <span className="text-xs sm:text-sm tracking-[0.25em] uppercase font-bold">Watch Now</span>
                       </motion.div>
                     </div>
                   </div>
@@ -795,14 +814,14 @@ const VideoReels = () => {
                     </div>
 
                     {/* Play Button */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                      <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-savanna-gold/90 backdrop-blur-sm flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform duration-300">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300">
+                      <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-savanna-gold/90 backdrop-blur-sm flex items-center justify-center md:transform md:scale-0 md:group-hover:scale-100 transition-transform duration-300">
                         <Play size={16} className="text-savanna-charcoal fill-current ml-0.5" />
                       </div>
                     </div>
 
                     {/* Subtitle */}
-                    <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">
+                    <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 md:transform md:translate-y-2 md:group-hover:translate-y-0">
                       <div className="w-2 sm:w-3 h-px bg-savanna-gold" />
                       <span className="text-savanna-gold text-[8px] sm:text-[9px] tracking-[0.2em] uppercase font-bold">
                         {reel.subtitle}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo   } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, Shield, X, ArrowRight } from 'lucide-react';
@@ -9,25 +9,57 @@ import {UserAvatar} from './UserAvatar.tsx';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const location = useLocation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
+  const location = useLocation();
+  const navigationItems = useMemo(() => [
+    { id: 'home', label: 'Home' },
+    { id: 'reels', label: 'Reels' },
+    { id: 'gallery', label: 'Gallery' },
+    { id: 'about', label: 'About' },
+    { id: 'services', label: 'Services' },
+    { id: 'faq', label: 'FAQ' },
+    { id: 'contact', label: 'Contact' }
+  ], []);
+
+// Track active section based on scroll position
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      const sections = navigationItems.map(item => item.id);
+      const scrollPosition = window.scrollY + 100; // Offset for header height
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sections[i]);
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveSection(sections[i]);
+          break;
+        }
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    // Set initial active section
+    handleScroll();
 
-  useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [location]);
+    // Add scroll listener
+    window.addEventListener('scroll', handleScroll);
+
+    // Cleanup
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [navigationItems]);
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    element?.scrollIntoView({ behavior: 'smooth' });
+    setIsMenuOpen(false);
+    setActiveSection(sectionId);
+  };
+
+  const isActive = (sectionId: string) => activeSection === sectionId;
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
-    if (isMobileMenuOpen) {
+    if (isMenuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -35,18 +67,9 @@ export function Navbar() {
     return () => {
       document.body.style.overflow = '';
     };
-  }, [isMobileMenuOpen]);
+  }, [isMenuOpen]);
 
-  const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Reels', path: '/portfolio' },
-    { name: 'Gallary', path: '/#services' },
-    { name: 'About', path: '/tours' },
-    { name: 'Services', path: '/about' },
-    { name: 'FAQ', path: '/#contact' },
-    { name: 'Contact', path: '/#contact' },
 
-  ];
 
   return (
     <>
@@ -58,12 +81,12 @@ export function Navbar() {
             : 'bg-transparent'
         }`}
       >
-        <div className="h-20 w-full px-6 md:px-12 lg:px-16 flex items-center justify-between gap-4">
+        <div className="h-16 md:h-20 w-full px-4 sm:px-6 md:px-12 lg:px-16 flex items-center justify-between gap-2 sm:gap-4">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 shrink-0">
-            <UserAvatar size="lg" interactive={false} fallbackText="A" className="border-savanna-gold/30" />
-            <div className="flex flex-col">
-              <span className="text-lg font-display font-bold text-foreground tracking-wide">
+          <Link to="/" className="flex items-center gap-2 sm:gap-3 min-w-0 shrink">
+            <UserAvatar size="lg" interactive={false} fallbackText="A" className="border-savanna-gold/30 shrink-0" />
+            <div className="flex flex-col min-w-0">
+              <span className="text-base sm:text-lg font-display font-bold text-foreground tracking-wide truncate">
                 Abby Wild
               </span>
               <span className="text-[10px] uppercase tracking-[0.3em] text-savanna-gold font-medium">
@@ -73,32 +96,27 @@ export function Navbar() {
           </Link>
 
           {/* Navigation Links - Desktop */}
-          <nav className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`relative text-sm font-medium transition-colors ${
-                  location.pathname === link.path || (link.path.startsWith('#') && location.pathname === '/')
-                    ? 'text-savanna-gold'
-                    : 'text-foreground hover:text-savanna-gold'
-                }`}
-              >
-                {link.name}
-                {(location.pathname === link.path || (link.path.startsWith('#') && location.pathname === '/')) && (
-                  <motion.div
-                    layoutId="activeNav"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-savanna-gold"
-                    initial={false}
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                  />
-                )}
-              </Link>
+          <nav className="hidden lg:flex space-x-8">
+            {navigationItems.map((item) => (
+                <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className={`relative font-medium transition-all duration-300 ${
+                        isActive(item.id)
+                            ? 'text-amber-600'
+                            : 'text-gray-700 hover:text-amber-600'
+                    }`}
+                >
+                  {item.label}
+                  {isActive(item.id) && (
+                      <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-amber-600 rounded-full transition-all duration-300"></div>
+                  )}
+                </button>
             ))}
           </nav>
 
           {/* Right Side Actions */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-1 sm:gap-4 shrink-0">
             {/* Admin Shield Link */}
             <Link
               to="/login"
@@ -124,7 +142,7 @@ export function Navbar() {
               variant="ghost"
               size="icon"
               className="lg:hidden min-touch-target"
-              onClick={() => setIsMobileMenuOpen(true)}
+              onClick={() => setIsMenuOpen(true)}
             >
               <Menu className="h-6 w-6" />
             </Button>
@@ -134,7 +152,7 @@ export function Navbar() {
 
       {/* Mobile Menu Drawer */}
       <AnimatePresence mode="sync">
-        {isMobileMenuOpen && (
+        {isMenuOpen && (
           <>
             {/* Backdrop */}
             <motion.div
@@ -143,7 +161,7 @@ export function Navbar() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
               className="fixed inset-0 bg-savanna-charcoal/80 backdrop-blur-sm z-[60]"
-              onClick={() => setIsMobileMenuOpen(false)}
+              onClick={() => setIsMenuOpen(false)}
             />
 
             {/* Drawer */}
@@ -152,7 +170,7 @@ export function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="lg:hidden fixed right-0 top-0 h-full w-[85%] max-w-sm bg-background border-l border-savanna-gold/20 flex flex-col z-[70] shadow-2xl"
+              className="lg:hidden fixed right-0 top-0 h-full w-[min(85%,24rem)] bg-background border-l border-savanna-gold/20 flex flex-col z-[70] shadow-2xl pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
             >
               {/* Drawer Header */}
               <div className="flex items-center justify-between p-6 border-b border-border/30 flex-shrink-0">
@@ -170,7 +188,7 @@ export function Navbar() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={() => setIsMenuOpen(false)}
                   className="min-touch-target"
                 >
                   <X className="h-6 w-6" />
@@ -179,7 +197,7 @@ export function Navbar() {
 
               {/* Drawer Content */}
               <div className="flex-1 flex flex-col overflow-y-auto p-6 space-y-2">
-                {navLinks.map((link) => (
+                {navigationItems.map((link) => (
                   <Link
                     key={link.path}
                     to={link.path}

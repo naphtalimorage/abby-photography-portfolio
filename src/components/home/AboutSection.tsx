@@ -12,8 +12,8 @@ export function AboutSection() {
 
   return (
     <section
-      className="w-full py-24 md:py-32 px-6 md:px-12 lg:px-[64px] bg-gradient-to-b from-background via-background to-savanna-gold/5 overflow-hidden relative"
-      id="about-preview"
+      className="w-full py-16 sm:py-24 md:py-32 px-4 sm:px-6 md:px-12 lg:px-[64px] bg-gradient-to-b from-background via-background to-savanna-gold/5 overflow-hidden relative"
+      id="about"
     >
       {/* Decorative Background Elements */}
       <div className="absolute top-20 left-10 w-64 h-64 bg-savanna-gold/5 rounded-full blur-3xl"></div>
@@ -21,21 +21,21 @@ export function AboutSection() {
 
       <div className="relative max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-savanna-gold/10 border border-savanna-gold/20 mb-6">
-            <Sparkles className="w-4 h-4 text-savanna-gold" />
-            <span className="text-xs leading-4 tracking-[0.2em] uppercase text-savanna-gold font-medium">
+        <div className="text-center mb-10 sm:mb-16">
+          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-savanna-gold/10 border border-savanna-gold/20 mb-6 max-w-full">
+            <Sparkles className="w-4 h-4 text-savanna-gold shrink-0" />
+            <span className="text-[10px] sm:text-xs leading-4 tracking-[0.12em] sm:tracking-[0.2em] uppercase text-savanna-gold font-medium">
               The Story Behind The Shutter
             </span>
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl text-foreground leading-tight mb-4">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-foreground leading-tight mb-4">
             Crafting Living Legacies from the{' '}
             <span className="italic text-savanna-gold font-normal">Maasai Mara</span> to the
             World
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
           {/* Portrait Side */}
           <div className="relative order-2 lg:order-1">
             <div className="relative">
@@ -51,7 +51,7 @@ export function AboutSection() {
               </div>
 
               {/* Floating Badge - Top Right */}
-              <div className="absolute -top-4 -right-4 bg-savanna-gold text-savanna-charcoal px-5 py-3 rounded-xl shadow-xl shadow-savanna-gold/30">
+              <div className="absolute top-3 right-3 sm:-top-4 sm:-right-4 bg-savanna-gold text-savanna-charcoal px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl shadow-xl shadow-savanna-gold/30">
                 <div className="text-center">
                   <span className="block text-[10px] leading-[14px] uppercase tracking-widest font-bold">
                     ESTD
@@ -66,7 +66,7 @@ export function AboutSection() {
               </div>
 
               {/* Floating Credential Badge - Bottom Left */}
-              <div className="absolute -bottom-4 -left-4 bg-savanna-charcoal/95 backdrop-blur-md text-savanna-cream px-5 py-3 rounded-xl shadow-xl border border-savanna-gold/30 flex items-center gap-3">
+              <div className="absolute bottom-3 left-3 sm:-bottom-4 sm:-left-4 bg-savanna-charcoal/95 backdrop-blur-md text-savanna-cream px-4 sm:px-5 py-3 rounded-xl shadow-xl border border-savanna-gold/30 flex items-center gap-3 max-w-[calc(100%-1.5rem)]">
                 <div className="w-10 h-10 rounded-full bg-savanna-gold/20 flex items-center justify-center">
                   <Medal className="w-5 h-5 text-savanna-gold" />
                 </div>
@@ -121,7 +121,7 @@ export function AboutSection() {
             </div>
 
             {/* Social Links */}
-            <div className="flex items-center gap-4 pt-4">
+            <div className="flex flex-wrap items-center gap-3 pt-4">
               <a
                 className="flex items-center gap-3 px-5 py-3 bg-card border border-border rounded-lg hover:border-savanna-gold/50 hover:bg-savanna-gold/5 transition-all group"
                 href="https://www.instagram.com/ryan_wild_gallery"

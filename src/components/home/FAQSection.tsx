@@ -29,14 +29,14 @@ const FAQ = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="relative py-24 md:py-32 bg-background overflow-hidden">
+    <section id={"faq"} className="relative py-16 sm:py-24 md:py-32 bg-background overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_var(--savanna-gold)_1px,_transparent_1px)] bg-[length:40px_40px]" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
           {/* Left - Header & Intro */}
           <div className="lg:col-span-4">
             <motion.div
@@ -48,12 +48,12 @@ const FAQ = () => {
             >
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-12 h-px bg-savanna-gold" />
-                <span className="text-savanna-gold text-sm tracking-[0.4em] uppercase font-medium">
+                <span className="text-savanna-gold text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.4em] uppercase font-medium">
                   Preparation
                 </span>
               </div>
 
-              <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-light text-foreground leading-[0.95] mb-6">
+              <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-light text-foreground leading-[1.05] sm:leading-[0.95] mb-6">
                 <span className="block">Frequently</span>
                 <span className="block italic text-savanna-gold mt-2">Asked</span>
               </h2>
@@ -155,7 +155,7 @@ const FAQ = () => {
                         transition={{ duration: 0.4, ease: "easeInOut" }}
                         className="overflow-hidden"
                       >
-                        <div className="pb-6 md:pb-8 pl-10 md:pl-14">
+                        <div className="pb-6 md:pb-8 pl-0 sm:pl-10 md:pl-14">
                           <div className="flex items-start gap-4">
                             <div className="w-8 h-px bg-savanna-gold/40 mt-3 shrink-0" />
                             <p className="text-muted-foreground text-base md:text-lg leading-relaxed">

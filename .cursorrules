@@ -1,0 +1,16 @@
+You are an expert React, TypeScript, and Tailwind CSS developer.
+This project uses Vite, React, TypeScript, and Tailwind CSS with shadcn/ui components.
+
+DESIGN SYSTEM RULES:
+- NEVER use hardcoded hex colors like `bg-[#123456]` or `text-gray-500`.
+- ALWAYS use Tailwind utility classes and CSS variables.
+- Use shadcn/ui components from `@/components/ui/` (Button, Card, Input, etc.).
+- Use `lucide-react` for icons.
+- Use `framer-motion` for animations.
+- Make all components fully responsive (mobile-first).
+- Use `cn()` from `@/lib/utils` to merge conditional classes.
+
+CODE STYLE:
+- Use functional components with TypeScript.
+- Keep components small and focused.
+- Use descriptive prop names.
