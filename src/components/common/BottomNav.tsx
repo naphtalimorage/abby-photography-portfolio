@@ -14,10 +14,10 @@ const BottomNav = () => {
   return (
       <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50">
         {/* Gold accent line at top */}
-        <div className="h-[1px] bg-gradient-to-r from-transparent via-savanna-gold/40 to-transparent" />
+        <div className="h-px bg-linear-to-r from-transparent via-savanna-gold/40 to-transparent" />
 
         {/* Navigation container with glass effect */}
-        <div className="bg-background/80 backdrop-blur-2xl border-t border-savanna-gold/10 shadow-[0_-8px_30px_rgba(0,0,0,0.2)]">
+        <div className="bg-background/95 backdrop-blur-xl border-t border-savanna-gold/10 shadow-[0_-8px_30px_rgba(0,0,0,0.2)]">
           <div className="flex justify-around items-center min-h-16 h-[calc(4.5rem+env(safe-area-inset-bottom))] px-2 sm:px-4 pb-[env(safe-area-inset-bottom)]">
             {navItems.map((item) => (
                 <NavLink

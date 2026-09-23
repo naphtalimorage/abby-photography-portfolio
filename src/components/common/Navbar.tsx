@@ -163,7 +163,7 @@ export function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-savanna-charcoal/80 backdrop-blur-sm z-[60]"
+              className="fixed inset-0 bg-background/95 backdrop-blur-xl z-60"
               onClick={() => setIsMenuOpen(false)}
             />
 
