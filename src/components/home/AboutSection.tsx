@@ -57,10 +57,10 @@ export function AboutSection() {
                     ESTD
                   </span>
                   <span className="block text-2xl font-bold leading-none">
-                    2023
+                    2025
                   </span>
                   <span className="block text-[8px] leading-[14px] uppercase tracking-widest">
-                    NAIROBI
+                    MAASAI MARA
                   </span>
                 </div>
               </div>
@@ -72,10 +72,10 @@ export function AboutSection() {
                 </div>
                 <div>
                   <p className="text-xs leading-4 uppercase tracking-[0.15em] font-medium">
-                    Expedition Guide
+                    Photographer
                   </p>
                   <p className="text-xs leading-4 uppercase tracking-[0.15em] text-savanna-gold/80">
-                    & Fellow
+                    & Videographer
                   </p>
                 </div>
               </div>
