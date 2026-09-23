@@ -150,7 +150,7 @@ const PortfolioGallerySection = () => {
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
               <div>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-[2px] bg-gradient-to-r from-savanna-gold to-transparent" />
+                  <div className="w-12 h-0.5 bg-linear-to-r from-savanna-gold to-transparent" />
                   <span className="text-savanna-gold text-xs tracking-[0.4em] uppercase font-bold">
                     Portfolio
                   </span>

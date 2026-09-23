@@ -1,64 +1,45 @@
 // src/pages/Seasons.tsx
 import { motion } from 'framer-motion';
 import {
-  ArrowRight,
   Users,
   ShieldCheck,
   Send,
+  Shield,
+  Sun,
+  Leaf,
+  Tent,
+  Camera,
+  Moon
 } from 'lucide-react';
 import { useState } from 'react';
-const imageTip = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDReA46eRDPeHY4o6yDYHTd36_sJn-59UdcP2pFbXwR4INSAi23RDYh3he1FlWeucXLEkW-XUd14jDSq0TmlQb9uL6frQZ2hAu1CUqlTOK3BhnpqOYQap2PKLZoDwjibuBBbj2jh2NBN8di2HMurvMGzn3wpArzu8grzmhHEoieZir7uwj6KtBEDltKyyFhGDz2hiqKdeWYKqc2OO5X4HzeSeBJ5Qu__8QlqFpgC_EkVVaUt9-JPKxw';
-const ryanPhoto = 'https://lh3.googleusercontent.com/aida-public/AB6AXuBuovc8w2rReCG1-2MFkhyBtTgDD1vGyTesLec7C_hHGuAVF5JqxFnkOT4_BuimDFIAPgiY2xnPlNFHrPtJm8yWx0cCmE1Pon-f0Uw74gCuFFs1tJJuThTX_ar7DLl6rD4B3qxavFgzn0JU5X-wNy0_3tIb1fB5VJ9qzu6TCDRXW06mdtIAErljnO3LsF99arCh4Y57Bb4SN6GWFwY_0QXpMXgLhGs91G-0GQ4fJEZcRSzijbud8PA8';
+import imageTip from '@/assets/Zibras2.jpg';
+import ryanPhoto from '@/assets/IMG_0764.JPG.jpeg';
 
-
-const seasons = [
+// Replaced "Seasons" with "The Daily Rhythm" for a more immersive experience
+const dailyRhythm = [
   {
-    title: 'The Great Migration',
-    months: 'July – October',
-    color: 'bg-savanna-gold/80',
-    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCdXEX76hJzD2jcqWfXcZvOyYCcUSfSnRnxcvoWxnbj19MiHLpmXSlYZLoA9Kys1CpudF3s27aXMuQsSOPJi-dCx_BJaX1YhgqxaRb20E9XqJf3HdvX52WddOBG3Rj1lunu3ocb8vMZ4Kx9M6hg-u0Yr9oS1Tq7uG8Scs71UTnvTq2fiHisa7VPfyvm7fzYDpc-zfppxb62iZ153u0pAiM3VMppMJRlJLotekRcm6lzWyzxtTaQreuLUw',
-    alt: 'Great Migration river crossing',
-    description: 'Witness the world\'s most spectacular wildlife event as millions of wildebeest and zebras traverse the Mara River under the watchful eyes of predators.'
+    time: "05:30",
+    title: "The Dawn Patrol",
+    description: "Departing before first light. The bush is cool, predators are active, and the golden hour light paints the savannah in cinematic hues.",
+    icon: Sun
   },
   {
-    title: 'The Emerald Season',
-    months: 'November – May',
-    color: 'bg-savanna-forest/80',
-    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBz6LXNEsEChzlMSlewNeqH5-sq-W8FIMhRWT76-UjnziEEYegYUk5_MEsFoKdvK6PQSp_HAIgCNvTV0TOgglUhWtVzQq9k8bm1_y65QRDCNGCihot4URcCpLVELQ1GZli7yzcguhcm7aud1QNGyovIq9dImxxJBnue2koesWgQYoNWQISqhA7VAHhBcBLgKAG0I1BtmTIsjf6kfxJFCZGw9n7sB40M6vpcHDkiyV20Wqiw2iEPowuMLg',
-    alt: 'Lush green Mara landscape',
-    description: 'A paradise for photographers and bird enthusiasts. Dramatic storm clouds, crystal-clear air, and vibrant green landscapes provide a breathtaking backdrop.'
+    time: "12:00",
+    title: "The Midday Siesta",
+    description: "As the sun peaks, we retreat to the lodge. Gourmet bush lunches, rest, and afternoon post-processing workshops in the comfort of your suite.",
+    icon: Tent
   },
   {
-    title: 'The Calving Season',
-    months: 'January – February',
-    color: 'bg-savanna-earth/80',
-    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD_8FsztTkZTT3dqbZqnMEYO2NGu0JDxOeZNLy4sI13rD3zMgheV_5VwUVjKeCgdDfHmQXfOn8M2U5u14mj7N6aXb8BrvcaxvQMi-AqR8t-L5exo5pnT2cCV1FNwKn60QIOCkrCcJt7G1-il3KfdbXzHu1L_LzuSDS69bk8R6hc8scYH01cnFRzlfDazphajHxLXAa1UjFKYKa_yinmc8w5r9gStP9WM9mRGRb-uKl3sqP-e_lvvYu89w',
-    alt: 'Newborn wildebeest calf',
-    description: 'A time of abundance and high tension as thousands of calves are born, attracting the Mara\'s legendary big cats in a display of raw survival and new life.'
-  }
-];
-
-const expeditions = [
-  {
-    title: 'Migration Masterclass',
-    subtitle: '10 Days • Peak Migration Focus',
-    price: '$12,450',
-    description: 'Position yourself at the river\'s edge for the world\'s most dramatic river crossings, led by award-winning wildlife photographers.',
-    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDESsm4fF0kr1OcRH6Vnf3X5M6IFXlK5PzdbYd2rPSCz1HwvlkXx0Loq0Jvsjd9lCAr7vcVCal42efZU5Qz8NcwH5vs6XT4zDxQY1dP8rGwCQoZPB-0HyCmYdnEK6AROJJkPHq7VYukSk8VWw2SfQ-OvDsiLeVagJiwLkcayEKIMOaaQSXOik_KnIh39PmKG0Ze4E_Do0O1sgydKhK4k3sEzlXaQJPT6NuX-OpEzQrpPrGj8LmR1hkxgQ'
+    time: "16:00",
+    title: "The Golden Hour",
+    description: "The light softens. We track big cats and elephants as they emerge from the shadows, capturing the most dramatic portraits of the day.",
+    icon: Camera
   },
   {
-    title: 'Lush Savanna Workshop',
-    subtitle: '8 Days • Landscape & Birdlife',
-    price: '$8,200',
-    description: 'Capture the Mara in its most beautiful light. A deep dive into composition and storytelling amidst the vibrant greens of the Emerald Season.',
-    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC9kfTLbhuntVCH1wCMybKCGBZ-1ikv6NDGfuu1pbnXUj4q1HtCMp25QAxoI93LqBX7-8lKgZ0lcWhVtS7iLiEwnoeeINiqpB1vmpiuPCfYkfPehRudp4abojBM-bIiG3XoPH6JioIAeVTMrz3Bcaqi1ToZAiUYCbyn_7lPhnLCe8bddiS_e75rziZJCZXdLeQDPqz8GDe3C4Lb5_lPjsSPrhwyRHXBS-D_w72WDRyILUTVior_45V9oA'
-  },
-  {
-    title: 'Predator Pursuit',
-    subtitle: '7 Days • Big Cat Specialist',
-    price: '$9,150',
-    description: 'Track the Mara\'s famous \'Marsh Pride\' and elusive cheetah families during the calving season\'s peak predator-prey activity.',
-    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAb0j9uHJNcb-pxgmXuP1VmYsprYnyPIJ-WeTcPe_X80PQSeko6Bnxk75YMgsLR6lhSTEsJJhvoSHBC2Sax5rvzxlL4KkKTl9zeJlqX02QoBJvLQaMA51yHsImi3TbHJT_GbrCu9kLwQIAv3S6IMUH-qLw0GJ7UvpXefUXyimodftfq-8zy8P09zl3iVS6UndjxL9NEquby1mRiCRaXzN57UsCT14eFql3eFHbRIGToJm9C5BP-_utS3g'
+    time: "20:00",
+    title: "Under the Stars",
+    description: "Night drives with spotlights reveal elusive nocturnal creatures, followed by sundowners and storytelling around the campfire.",
+    icon: Moon
   }
 ];
 
@@ -69,14 +50,14 @@ const reasons = [
     description: 'The Mara\'s \'Big Five\' and legendary predator populations don\'t follow a calendar. Lion prides, elusive leopards, and resident elephant herds call this land home 365 days a year.'
   },
   {
-    icon: Users,
+    icon: ShieldCheck,
     title: 'Ancestral Wisdom',
     description: 'Our guides are Maasai warriors who have lived in harmony with this ecosystem for generations. Their ability to read the tracks and interpret the sounds of the bush is unparalleled.'
   },
   {
-    icon: ShieldCheck,
+    icon: Leaf,
     title: 'Sustainable Sanctuary',
-    description: 'By traveling with Mara Capture, you directly support local conservancies and wildlife protection initiatives that keep the Mara wild for future generations.'
+    description: 'By traveling with us, you directly support local conservancies and wildlife protection initiatives that keep the Mara wild for future generations.'
   }
 ];
 
@@ -92,145 +73,206 @@ const Seasons = () => {
   return (
       <div className="min-h-screen bg-background">
         {/* Hero Section */}
-        <section className="relative min-h-[70vh] sm:min-h-[80vh] md:min-h-screen flex flex-col overflow-hidden">
-          {/* Background Image */}
+        <section className="relative min-h-screen flex items-center overflow-hidden">
+          {/* Background Image with Parallax */}
           <div className="absolute inset-0 z-0">
             <motion.div
-                initial={{ scale: 1.1 }}
+                initial={{ scale: 1.15 }}
                 animate={{ scale: 1 }}
-                transition={{ duration: 12, ease: "easeOut" }}
+                transition={{ duration: 15, ease: "easeOut" }}
                 className="w-full h-full bg-cover bg-center"
                 style={{
                   backgroundImage: `url(${imageTip})`
                 }}
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-transparent to-background" />
+            <div className="absolute inset-0 bg-linear-to-r from-savanna-charcoal/95 via-savanna-charcoal/70 to-savanna-charcoal/40" />
           </div>
 
-          {/* Content - Flex column to push scroll indicator down */}
-          <div className="relative z-10 flex-1 flex flex-col justify-between items-center px-4 sm:px-6 md:px-16 py-12 sm:py-16">
-            {/* Main content - centered vertically */}
-            <div className="flex-1 flex gap-2 items-center justify-center w-full">
-              <div className="text-center max-w-4xl mt-12 md:mt-0">
+          {/* Content */}
+          <div className="relative z-10 w-full px-4 sm:px-6 md:px-16 lg:px-16 py-20 md:py-16">
+            <div className="max-w-7xl mx-auto">
+              {/* Top Badges */}
+              <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.1 }}
+                  className="flex flex-wrap items-center gap-3 mb-8"
+              >
+              <span className="inline-flex items-center px-3 py-1 bg-savanna-gold/20 border border-savanna-gold/40 text-savanna-gold text-[10px] sm:text-xs tracking-[0.2em] uppercase font-semibold rounded-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-savanna-gold mr-2 animate-pulse"></span>
+                2025–2026 Bespoke Expeditions
+              </span>
+                <span className="inline-flex items-center text-savanna-cream/70 text-[10px] sm:text-xs tracking-[0.15em] uppercase font-medium">
+                <Shield className="w-3.5 h-3.5 mr-1.5 text-savanna-gold" />
+                Private Conservancy Access
+              </span>
+              </motion.div>
+
+              {/* Main Content */}
+              <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, delay: 0.2 }}
+                  className="max-w-3xl"
+              >
+                <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-savanna-cream mb-4 leading-[0.95]">
+                  The Eternal <span className="italic text-savanna-gold">Mara</span>
+                </h1>
+
+                <p className="font-display italic text-savanna-gold text-xl sm:text-xl md:text-2xl mb-8">
+                  The Heart of East Africa & Beyond
+                </p>
+
+                <p className="text-savanna-cream/80 text-sm sm:text-base max-w-2xl leading-relaxed mb-10">
+                  High-end bespoke wildlife photography safaris personally guided across the Maasai Mara, Serengeti, Amboseli, and Samburu ecosystems. Travel inside custom-rigged 4x4 Land Cruisers featuring 360° roof hatches, fluid gimbal heads, beanbag stabilizers, and evening masterclass post-processing in private field tent suites.
+                </p>
+
+                {/* CTA Buttons */}
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-16">
+                  <a
+                      href="#rhythm"
+                      className="inline-flex items-center justify-center px-8 py-4 bg-savanna-charcoal/80 border border-savanna-cream/20 text-savanna-cream text-xs tracking-[0.2em] uppercase font-semibold hover:bg-savanna-charcoal transition-all duration-300"
+                  >
+                    Experience the Rhythm
+                  </a>
+                  <a
+                      href="#inquire"
+                      className="inline-flex items-center justify-center px-8 py-4 bg-savanna-gold text-savanna-charcoal text-xs tracking-[0.2em] uppercase font-semibold hover:bg-savanna-gold/90 transition-all duration-300"
+                  >
+                    Design Your Safari
+                  </a>
+                </div>
+              </motion.div>
+
+              {/* Scroll Indicator */}
+              <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1.5 }}
+                  className="absolute bottom-40 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center gap-2"
+              >
+                <span className="text-savanna-cream/40 text-[10px] tracking-[0.3em] uppercase">Scroll</span>
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.3 }}
-                >
-                                <span className="text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] uppercase text-savanna-cream/90 mb-4 block">
-                                    The Heart of East Africa
-                                </span>
+                    animate={{ y: [0, 8, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    className="w-px h-12 bg-linear-to-b from-savanna-gold to-transparent"
+                />
+              </motion.div>
 
-                  <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-savanna-cream mb-6 md:mb-8 leading-[1.1] sm:leading-[0.95]">
-                    <span className="block">The Eternal</span>
-                    <span className="block italic text-savanna-gold mt-1 sm:mt-2">Mara</span>
-                  </h1>
-
-                  <p className="text-savanna-cream/80 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-8 md:mb-10 leading-relaxed px-4">
-                    Experience the rhythmic pulse of the savanna, where every month reveals a new facet of nature's most dramatic theater.
-                  </p>
-
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8 sm:mt-0">
-                    <a
-                        href="#seasons"
-                        className="inline-flex items-center justify-center gap-2 px-8 py-5 bg-savanna-cream text-savanna-charcoal text-sm tracking-[0.2em] uppercase font-medium hover:bg-savanna-gold transition-all"
-                    >
-                      <span>Explore Seasons</span>
-                      <ArrowRight size={14} />
-                    </a>
-                    <a
-                        href="#inquire"
-                        className="inline-flex items-center justify-center gap-2 px-8 py-5 border border-savanna-cream text-savanna-cream text-sm tracking-[0.2em] uppercase hover:bg-savanna-cream/10 transition-all"
-                    >
-                      <span>Design Your Safari</span>
-                    </a>
+              {/* Stats Row */}
+              <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, delay: 0.4 }}
+                  className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 bg-savanna-charcoal/40 backdrop-blur-sm border border-savanna-cream/10 p-6 md:p-8 rounded-lg"
+              >
+                <div className="flex items-start gap-3">
+                  <Users className="w-5 h-5 text-savanna-gold flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-[10px] text-savanna-cream/50 tracking-[0.15em] uppercase font-semibold mb-1">
+                      Exclusivity
+                    </p>
+                    <p className="text-savanna-cream text-sm font-medium">
+                      Max 3 Per Vehicle
+                    </p>
                   </div>
-                </motion.div>
-              </div>
-            </div>
+                </div>
 
-            {/* Scroll Indicator - positioned at the bottom of the hero */}
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: 1,
-                  y: [0, -8, 0]
-                }}
-                transition={{
-                  delay: 1.2,
-                  duration: 1,
-                  y: {
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }
-                }}
-                className="hidden md:flex flex-col items-center gap-1 pb-4 md:pb-2"
-            >
-              <span className="text-savanna-cream/40 text-[10px] tracking-[0.3em] uppercase">Scroll</span>
-              <div className="w-[1px] h-10 bg-gradient-to-b from-savanna-gold to-transparent" />
-            </motion.div>
+                <div className="flex items-start gap-3">
+                  <Shield className="w-5 h-5 text-savanna-gold flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-[10px] text-savanna-cream/50 tracking-[0.15em] uppercase font-semibold mb-1">
+                      Permissions
+                    </p>
+                    <p className="text-savanna-cream text-sm font-medium">
+                      Unrestricted Off-Road
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <Sun className="w-5 h-5 text-savanna-gold shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-[10px] text-savanna-cream/50 tracking-[0.15em] uppercase font-semibold mb-1">
+                      Optimal Light
+                    </p>
+                    <p className="text-savanna-cream text-sm font-medium">
+                      Daily Sunrise Drives
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 col-span-2 md:col-span-1">
+                  <Leaf className="w-5 h-5 text-savanna-gold shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-[10px] text-savanna-cream/50 tracking-[0.15em] uppercase font-semibold mb-1">
+                      Conservation
+                    </p>
+                    <p className="text-savanna-cream text-sm font-medium">
+                      100% Carbon-Offset & MEP
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
           </div>
         </section>
 
-        {/* Seasonal Perspectives */}
-        <section id="seasons" className="py-16 md:py-24 lg:py-32 px-6 md:px-16 lg:px-[64px] bg-background">
-          <div className="max-w-[1600px] mx-auto">
+        {/* The Daily Rhythm (Replaces Seasonal Perspectives) */}
+        <section id="rhythm" className="py-20 md:py-32 px-4 sm:px-6 md:px-16 lg:px-16 bg-savanna-charcoal/10">
+          <div className="max-w-7xl mx-auto">
             <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className="text-center mb-10 md:mb-16"
+                className="mb-16 md:mb-20 text-center md:text-left"
             >
-              <div className="flex items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-6">
-                <div className="w-8 sm:w-12 h-[1px] bg-savanna-gold" />
-                <span className="text-savanna-gold text-xs sm:text-sm tracking-[0.3em] sm:tracking-[0.4em] uppercase font-medium">
-                                Cycles of Life
-                            </span>
-                <div className="w-8 sm:w-12 h-[1px] bg-savanna-gold" />
+              <div className="flex items-center gap-4 mb-6 justify-center md:justify-start">
+                <div className="w-20 h-0.5 bg-savanna-gold" />
+                <span className="text-savanna-gold text-xs tracking-[0.4em] uppercase font-semibold">
+                The Experience
+              </span>
               </div>
 
-              <h2 className="font-display text-3xl sm:text-5xl md:text-6xl text-foreground font-light leading-[1.1] sm:leading-[0.95]">
-                <span className="block">Seasonal</span>
-                <span className="block italic text-savanna-gold mt-1 sm:mt-2">Perspectives</span>
+              <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-foreground font-light leading-[0.95] mb-6">
+                <span className="block">The Daily</span>
+                <span className="block italic text-savanna-gold mt-2">Rhythm</span>
               </h2>
 
-              <p className="mt-6 text-muted-foreground text-base md:text-lg max-w-xl mx-auto leading-relaxed">
-                From the golden dust of the migration to the vibrant greens of the rains, timing is the key to your perfect capture.
+              <p className="text-muted-foreground text-lg md:text-xl max-w-2xl leading-relaxed mx-auto md:mx-0">
+                A bespoke safari is not just a destination; it is a way of life. Here is how your days will unfold in the wild.
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-              {seasons.map((season, index) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+              {dailyRhythm.map((item, index) => (
                   <motion.div
                       key={index}
-                      initial={{ opacity: 0, y: 30 }}
+                      initial={{ opacity: 0, y: 40 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: index * 0.1 }}
-                      className="group cursor-pointer"
+                      transition={{ duration: 0.7, delay: index * 0.1 }}
+                      className="group relative p-8 md:p-10 bg-background border border-border/30 hover:border-savanna-gold/40 transition-all duration-500 hover:-translate-y-1"
                   >
-                    <div className="relative aspect-[4/5] overflow-hidden rounded-sm mb-6 border border-border/30 group-hover:border-savanna-gold/40 transition-all duration-500">
-                      <div
-                          className="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                          style={{ backgroundImage: `url('${season.imageUrl}')` }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-savanna-charcoal/90 via-savanna-charcoal/40 to-transparent" />
-
-                      <div className="absolute bottom-6 left-6 right-6">
-                                        <span className={`inline-block px-3 py-1 text-xs tracking-[0.2em] uppercase font-medium text-savanna-charcoal mb-3 ${season.color}`}>
-                                            {season.months}
-                                        </span>
-                        <h3 className="font-display text-2xl text-savanna-cream font-light">
-                          {season.title}
-                        </h3>
+                    <div className="flex items-start justify-between mb-6">
+                      <div className="w-12 h-12 flex items-center justify-center border border-savanna-gold/30 group-hover:bg-savanna-gold/10 transition-colors duration-500">
+                        <item.icon className="w-5 h-5 text-savanna-gold" />
                       </div>
+                      <span className="font-display text-2xl text-savanna-gold/30 group-hover:text-savanna-gold transition-colors duration-500">
+                    {item.time}
+                  </span>
                     </div>
 
+                    <h3 className="font-display text-2xl md:text-3xl text-foreground font-light mb-4">
+                      {item.title}
+                    </h3>
+
                     <p className="text-muted-foreground text-base leading-relaxed">
-                      {season.description}
+                      {item.description}
                     </p>
+
+                    <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-savanna-gold to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </motion.div>
               ))}
             </div>
@@ -249,7 +291,7 @@ const Seasons = () => {
                 className="relative"
             >
               <div className="relative overflow-hidden">
-                <img src={ryanPhoto} alt="San - Photographer & Filmmaker" loading="lazy" width={800} height={1000} className="w-full object-cover aspect-[4/5]  " />
+                <img src={ryanPhoto} alt="Photographer & Filmmaker" loading="lazy" width={800} height={1000} className="w-full object-cover aspect-[4/5]" />
                 <div className="absolute inset-0 bg-savanna-gold/0 hover:bg-savanna-gold/5 transition-colors duration-500" />
               </div>
               {/* Decorative element */}
@@ -264,10 +306,10 @@ const Seasons = () => {
                 transition={{ duration: 0.8, delay: 0.2 }}
             >
               <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-[1px] bg-savanna-gold" />
+                <div className="w-12 h-px bg-savanna-gold" />
                 <span className="text-savanna-gold text-sm tracking-[0.4em] uppercase font-medium">
-                                Beyond the Migration
-                            </span>
+                Beyond the Migration
+              </span>
               </div>
 
               <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground font-light mb-8 leading-[0.95]">
@@ -278,7 +320,7 @@ const Seasons = () => {
               <div className="space-y-6">
                 {reasons.map((reason, index) => (
                     <div key={index} className="flex gap-4">
-                      <div className="flex-shrink-0">
+                      <div className="shrink-0">
                         <div className="w-12 h-12 flex items-center justify-center border border-savanna-gold/30">
                           <reason.icon className="w-5 h-5 text-savanna-gold" />
                         </div>
@@ -298,85 +340,6 @@ const Seasons = () => {
           </div>
         </section>
 
-        {/* Signature Expeditions */}
-        <section className="py-16 md:py-24 lg:py-32 px-6 md:px-16 lg:px-[64px] bg-background">
-          <div className="max-w-[1600px] mx-auto">
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-                className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16 gap-6"
-            >
-              <div className="max-w-xl">
-                <div className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
-                  <div className="w-8 sm:w-12 h-[1px] bg-savanna-gold" />
-                  <span className="text-savanna-gold text-xs sm:text-sm tracking-[0.3em] sm:tracking-[0.4em] uppercase font-medium">
-                                    Curated Journeys
-                                </span>
-                </div>
-
-                <h2 className="font-display text-3xl sm:text-5xl md:text-6xl text-foreground font-light leading-[1.1] sm:leading-[0.95]">
-                  <span className="block">Signature</span>
-                  <span className="block italic text-savanna-gold mt-1 sm:mt-2">Expeditions</span>
-                </h2>
-
-                <p className="mt-6 text-muted-foreground text-base md:text-lg leading-relaxed">
-                  Carefully curated journeys designed for the discerning traveler and passionate photographer.
-                </p>
-              </div>
-
-              <a
-                  href="/safaris"
-                  className="group inline-flex items-center gap-2 text-savanna-gold text-sm tracking-[0.2em] uppercase font-medium hover:gap-3 transition-all"
-              >
-                <span>View All Expeditions</span>
-                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-              </a>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {expeditions.map((expedition, index) => (
-                  <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: index * 0.1 }}
-                      className="group bg-background border border-border/30 hover:border-savanna-gold/40 overflow-hidden transition-all duration-300"
-                  >
-                    <div className="aspect-[4/3] overflow-hidden">
-                      <div
-                          className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                          style={{ backgroundImage: `url('${expedition.imageUrl}')` }}
-                      />
-                    </div>
-
-                    <div className="p-6 md:p-8">
-                      <h3 className="font-display text-2xl text-foreground font-light mb-2">
-                        {expedition.title}
-                      </h3>
-                      <p className="text-muted-foreground text-base mb-6 font-medium">
-                        {expedition.subtitle}
-                      </p>
-                      <p className="text-muted-foreground text-base leading-relaxed mb-8">
-                        {expedition.description}
-                      </p>
-                      <div className="pt-6 border-t border-border/30 flex justify-between items-center">
-                                        <span className="font-display text-2xl text-savanna-gold font-medium">
-                                            From {expedition.price}
-                                        </span>
-                        <button className="text-sm tracking-[0.2em] uppercase text-foreground hover:text-savanna-gold transition-colors font-semibold">
-                          Explore
-                        </button>
-                      </div>
-                    </div>
-                  </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* Inquiry Section */}
         <section id="inquire" className="py-16 md:py-24 lg:py-32 px-6 md:px-16 lg:px-[64px] bg-savanna-charcoal/30">
           <motion.div
@@ -387,16 +350,16 @@ const Seasons = () => {
               className="max-w-4xl mx-auto text-center"
           >
             <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="w-12 h-[1px] bg-savanna-gold" />
+              <div className="w-12 h-px bg-savanna-gold" />
               <span className="text-savanna-gold text-sm tracking-[0.4em] uppercase font-medium">
-                            Begin Your Journey
-                        </span>
-              <div className="w-12 h-[1px] bg-savanna-gold" />
+              Begin Your Journey
+            </span>
+              <div className="w-12 h-px bg-savanna-gold" />
             </div>
 
             <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-foreground font-light mb-6 leading-[0.95]">
               <span className="block">Design Your</span>
-              <span className="block italic text-savanna-gold mt-2">Perfect Season</span>
+              <span className="block italic text-savanna-gold mt-2">Perfect Safari</span>
             </h2>
 
             <p className="text-muted-foreground text-base md:text-lg mb-12 max-w-2xl mx-auto leading-relaxed">
@@ -433,14 +396,14 @@ const Seasons = () => {
 
                 <div className="space-y-2">
                   <label className="text-sm tracking-[0.2em] uppercase text-muted-foreground font-medium">
-                    Preferred Season
+                    Preferred Time of Year
                   </label>
                   <select
                       value={formData.season}
                       onChange={(e) => setFormData({ ...formData, season: e.target.value })}
                       className="w-full bg-transparent border-b border-border/50 focus:border-savanna-gold focus:ring-0 py-3 transition-colors text-foreground appearance-none cursor-pointer"
                   >
-                    <option value="">Select a season</option>
+                    <option value="">Select a time</option>
                     <option value="migration">The Great Migration (Jul-Oct)</option>
                     <option value="emerald">The Emerald Season (Nov-May)</option>
                     <option value="calving">The Calving Season (Jan-Feb)</option>

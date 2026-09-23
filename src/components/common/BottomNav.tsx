@@ -6,9 +6,9 @@ import { GalleryVertical, Compass, Award, Mail } from 'lucide-react';
 const BottomNav = () => {
   const navItems = [
     { icon: GalleryVertical, label: 'Home', path: '/' },
-    { icon: Compass, label: 'Portfolio', path: '/portfolio' },
-    { icon: Award, label: 'Safaris', path: '/tours' },
-    { icon: Mail, label: 'About', path: '/about' }
+    { icon: Compass, label: 'Archive', path: '/portfolio' },
+    { icon: Award, label: 'EXPEDITIONS ', path: '/tours' },
+    { icon: Mail, label: 'THE GUIDE', path: '/about' }
   ];
 
   return (

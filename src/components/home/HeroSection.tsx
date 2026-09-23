@@ -143,7 +143,7 @@ export function HeroSection() {
 
   return (
     <section
-      className="relative w-full min-h-[100svh] overflow-hidden -mt-16 md:-mt-20 flex items-end select-none"
+      className="relative w-full min-h-screen overflow-hidden -mt-16 md:-mt-20 flex items-end select-none"
       id="hero-carousel"
     >
       {/* Slides Container */}
@@ -186,7 +186,7 @@ export function HeroSection() {
       </div>
 
       {/* Hero Content Overlay */}
-      <div className="relative z-20 w-full px-4 sm:px-6 md:px-12 flex flex-col justify-end pb-28 md:pb-8">
+      <div className="relative z-20 w-full px-4 sm:px-6 md:px-12 flex flex-col items-center justify-center md:items-start md:justify-end pb-28 md:pb-8">
         <div className="max-w-4xl flex flex-col gap-3 sm:gap-4">
           {/* Category Pill Badge */}
           <motion.div
@@ -194,13 +194,13 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex flex-col sm:flex-row items-start sm:items-center gap-3"
+            className="flex flex-col sm:flex-row items-center  sm:items-start gap-3"
           >
             <span className="inline-flex items-center gap-2 px-4 py-2 bg-savanna-gold/10 backdrop-blur-md border border-savanna-gold/30 text-savanna-gold text-xs tracking-[0.25em] uppercase font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-savanna-gold animate-pulse"></span>
               Safaris & Expeditions
             </span>
-            <span className="text-xs tracking-[0.2em] uppercase text-savanna-cream/70">
+            <span className="text-xs lg:mt-2 tracking-[0.2em] uppercase text-savanna-cream/70">
               {slides[current].subtitle}
             </span>
           </motion.div>
@@ -211,7 +211,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="font-display text-[1.65rem] sm:text-3xl md:text-5xl lg:text-6xl text-savanna-cream leading-tight text-left"
+            className="font-display text-[1.65rem] sm:text-3xl md:text-5xl lg:text-5xl text-savanna-cream leading-tight text-center md:text-left"
           >
             The Untamed Rhythm {' '}
             <span className="sm:block italic text-savanna-gold font-normal">of East Africa</span>
@@ -223,7 +223,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-sm sm:text-base md:text-lg text-savanna-cream/80 max-w-2xl line-clamp-3 md:line-clamp-none"
+            className="text-sm sm:text-base md:text-lg text-savanna-cream/80 max-w-2xl line-clamp-3 md:line-clamp-none text-center md:text-left"
           >
             {slides[current].desc}
           </motion.p>
@@ -233,28 +233,34 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="flex flex-col xs:flex-row flex-wrap items-stretch sm:items-center justify-start gap-3 sm:gap-4 pb-2"
+            className="flex flex-col lg:flex-row flex-wrap items-center md:items-stretch sm:items-center justify-center md:justify-start gap-3 sm:gap-4 pb-2"
           >
-            <Link
-              to="/#contact"
+            <button
+              onClick={() => {
+                const element = document.getElementById('contact');
+                element?.scrollIntoView({ behavior: 'smooth' });
+              }}
               className="inline-flex items-center justify-center bg-savanna-gold text-savanna-charcoal hover:bg-savanna-gold/90 text-xs tracking-[0.14em] uppercase font-medium px-6 sm:px-8 py-3.5 sm:py-4 min-h-11 transition-all duration-300 shadow-lg shadow-savanna-gold/20 hover:shadow-xl hover:shadow-savanna-gold/30 active:scale-95"
             >
               Book Experience
               <ArrowRight className="ml-2 w-4 h-4" />
-            </Link>
-            <Link
-              to="/portfolio"
+            </button>
+            <button
+              onClick={() => {
+                const element = document.getElementById('gallery');
+                element?.scrollIntoView({ behavior: 'smooth' });
+              }}
               className="inline-flex items-center justify-center bg-savanna-charcoal/60 hover:bg-savanna-charcoal/80 backdrop-blur-md text-savanna-cream border border-savanna-gold/30 text-xs tracking-[0.14em] uppercase px-6 sm:px-8 py-3.5 sm:py-4 min-h-11 transition-all duration-300 hover:border-savanna-gold/50"
             >
               View Gallery
-            </Link>
+            </button>
           </motion.div>
         </div>
 
         {/* Slide Navigation Bar & Timer Controls */}
-        <div className="mt-8 sm:mt-6 pb-4 sm:pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6">
+        <div className="mt-8 sm:mt-6 pb-4 sm:pb-6 flex flex-col md:flex-row items-center md:items-center justify-between gap-4 sm:gap-6">
           {/* Progress Bar & Indicator */}
-          <div className="flex items-center gap-4 flex-1 max-w-md">
+          <div className="flex items-center  gap-4 flex-1 max-w-md">
             <span className="text-xs text-savanna-gold tracking-widest min-w-14 font-medium">
               {slides[current].number}
             </span>

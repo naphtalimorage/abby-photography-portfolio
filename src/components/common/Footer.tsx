@@ -26,7 +26,7 @@ const Footer = () => {
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-savanna-gold/60 to-transparent" />
 
       {/* Faint background texture */}
-      <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_50%_50%,_var(--savanna-gold)_1px,_transparent_1px)] bg-[length:24px_24px]" />
+      <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_50%_50%,var(--savanna-gold)_1px,transparent_1px)] bg-[length:24px_24px]" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-[64px] pt-12 sm:pt-16 pb-28 sm:pb-28 md:pb-12">
         {/* Main footer grid */}
@@ -35,7 +35,7 @@ const Footer = () => {
           <div className="md:col-span-5">
             <Logo className="mb-5" />
             <p className="text-savanna-cream/70 font-light text-base leading-relaxed max-w-sm">
-              Fine art photography and guided safaris capturing the untamed spirit
+              Fine art photography and guided photographic safaris capturing the untamed spirit
               of the Maasai Mara with elegance and authenticity.
             </p>
 

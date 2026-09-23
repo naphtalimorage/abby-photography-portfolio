@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo   } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, Shield, X, ArrowRight } from 'lucide-react';
+import { Menu, Shield, X } from 'lucide-react';
 import { FaInstagram as Instagram, FaYoutube as Youtube } from 'react-icons/fa';
 import { ThemeToggle } from './ThemeToggle';
 import { Button } from '../ui/button';
@@ -12,7 +12,6 @@ export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
-  const location = useLocation();
   const navigationItems = useMemo(() => [
     { id: 'home', label: 'Home' },
     { id: 'reels', label: 'Reels' },
@@ -23,9 +22,13 @@ export function Navbar() {
     { id: 'contact', label: 'Contact' }
   ], []);
 
-// Track active section based on scroll position
+// Track scroll position and active section
   useEffect(() => {
     const handleScroll = () => {
+      // Update scrolled state
+      setIsScrolled(window.scrollY > 10);
+
+      // Update active section
       const sections = navigationItems.map(item => item.id);
       const scrollPosition = window.scrollY + 100; // Offset for header height
 
@@ -38,7 +41,7 @@ export function Navbar() {
       }
     };
 
-    // Set initial active section
+    // Set initial state
     handleScroll();
 
     // Add scroll listener
@@ -78,7 +81,7 @@ export function Navbar() {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
             ? 'bg-background/95 backdrop-blur-xl shadow-lg border-b border-border/30'
-            : 'bg-transparent'
+            : 'bg-background/80 backdrop-blur-md'
         }`}
       >
         <div className="h-16 md:h-20 w-full px-4 sm:px-6 md:px-12 lg:px-16 flex items-center justify-between gap-2 sm:gap-4">
@@ -103,13 +106,13 @@ export function Navbar() {
                     onClick={() => scrollToSection(item.id)}
                     className={`relative font-medium transition-all duration-300 ${
                         isActive(item.id)
-                            ? 'text-amber-600'
-                            : 'text-gray-700 hover:text-amber-600'
+                            ? 'text-savanna-gold'
+                            : 'text-foreground hover:text-savanna-gold'
                     }`}
                 >
                   {item.label}
                   {isActive(item.id) && (
-                      <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-amber-600 rounded-full transition-all duration-300"></div>
+                      <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-savanna-gold rounded-full transition-all duration-300"></div>
                   )}
                 </button>
             ))}
@@ -131,10 +134,10 @@ export function Navbar() {
 
             {/* Book Now Button - Desktop */}
             <Button
-              asChild
+              onClick={() => scrollToSection('contact')}
               className="hidden md:inline-flex bg-savanna-gold text-savanna-charcoal hover:bg-savanna-gold/90 text-xs tracking-[0.2em] uppercase font-medium px-6 py-2.5 transition-all shadow-lg shadow-savanna-gold/20 active:scale-95"
             >
-              <Link to="/#contact">Book Now</Link>
+              Book Now
             </Button>
 
             {/* Mobile Menu Toggle */}
@@ -198,20 +201,17 @@ export function Navbar() {
               {/* Drawer Content */}
               <div className="flex-1 flex flex-col overflow-y-auto p-6 space-y-2">
                 {navigationItems.map((link) => (
-                  <Link
-                    key={link.path}
-                    to={link.path}
-                    className={`relative flex items-center justify-between py-4 text-lg font-medium transition-colors ${
-                      location.pathname === link.path || (link.path.startsWith('#') && location.pathname === '/')
-                        ? 'text-savanna-gold'
-                        : 'text-foreground hover:text-savanna-gold'
+                  <button
+                    key={link.id}
+                    onClick={() => scrollToSection(link.id)}
+                    className={`relative font-medium transition-all duration-300 ${
+                        isActive(link.id)
+                            ? 'text-savanna-gold'
+                            : 'text-foreground hover:text-savanna-gold'
                     }`}
                   >
-                    <span>{link.name}</span>
-                    {(location.pathname === link.path || (link.path.startsWith('#') && location.pathname === '/')) && (
-                      <ArrowRight className="w-5 h-5" />
-                    )}
-                  </Link>
+                    <span>{link.label}</span>
+                  </button>
                 ))}
               </div>
 
@@ -251,10 +251,10 @@ export function Navbar() {
               {/* Book Now Button */}
               <div className="p-6 border-t border-border/30">
                 <Button
-                  asChild
+                  onClick={() => scrollToSection('contact')}
                   className="w-full bg-savanna-gold text-savanna-charcoal hover:bg-savanna-gold/90 text-xs tracking-[0.2em] uppercase font-medium py-4 transition-all shadow-lg shadow-savanna-gold/20 active:scale-95"
                 >
-                  <Link to="/#contact">Book Experience</Link>
+                  Book Experience
                 </Button>
               </div>
 

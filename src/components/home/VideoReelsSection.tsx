@@ -667,8 +667,8 @@ const VideoReels = () => {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="inline-flex items-center gap-3 mb-6 px-5 py-2.5 bg-savanna-gold/10 backdrop-blur-lg border border-savanna-gold/30 rounded-full"
             >
-              <div className="w-2 h-2 bg-savanna-gold rounded-full animate-pulse" />
-              <span className="text-savanna-gold text-xs sm:text-sm tracking-[0.3em] uppercase font-semibold">
+              <div className="w-2 h-2 bg-savanna-gold rounded-full" />
+              <span className="text-savanna-gold text-xs  tracking-[0.3em] uppercase font-semibold">
                 Cinematic Archives
               </span>
             </motion.div>
@@ -679,10 +679,10 @@ const VideoReels = () => {
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-                className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-savanna-cream font-light leading-[1.05] mb-6 tracking-tight"
+                className="flex items-center gap-4 justify-center font-display text-3xl sm:text-4xl md:text-5xl lg:text-7xl text-savanna-cream font-light leading-[1.05] mb-6 tracking-tight"
             >
               <span className="block">Wild</span>
-              <span className="block italic text-savanna-gold">Moments</span>
+              <span className=" italic text-savanna-gold">Moments</span>
             </motion.h2>
 
             {/* Description */}
@@ -691,7 +691,7 @@ const VideoReels = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-savanna-cream/60 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed"
+                className="text-savanna-cream/60 text-sm  max-w-2xl mx-auto leading-relaxed"
             >
               Experience the untamed beauty of Africa through our lens. Each reel tells a story of the wild.
             </motion.p>
@@ -707,18 +707,18 @@ const VideoReels = () => {
                   className="mb-8 md:mb-12 relative group cursor-pointer"
                   onClick={() => openReel(0)}
               >
-                <div className="relative aspect-[4/5] sm:aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-lg">
+                <div className="relative aspect-4/5 sm:aspect-video md:aspect-21/9 overflow-hidden rounded-lg">
                   {/* Image */}
                   <SmartImage
                       src={reels[0].imageUrl}
                       alt={reels[0].alt}
                       loading="eager"
-                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                      className="w-full h-full object-cover transition-transform duration-1000 "
                   />
 
                   {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-savanna-charcoal/95 via-savanna-charcoal/40 to-transparent" />
-                  <div className="absolute inset-0 bg-gradient-to-b from-savanna-charcoal/30 via-transparent to-savanna-charcoal/95" />
+                  <div className="absolute inset-0 bg-linear-to-t from-savanna-charcoal/95 via-savanna-charcoal/40 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-b from-savanna-charcoal/30 via-transparent to-savanna-charcoal/95" />
 
                   {/* Content - Centered */}
                   <div className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-6 md:p-10 lg:p-16">
@@ -731,7 +731,7 @@ const VideoReels = () => {
                           transition={{ duration: 0.8, delay: 0.3 }}
                           className="inline-flex items-center gap-3 mb-6 px-5 py-2.5 bg-savanna-gold/10 backdrop-blur-lg border border-savanna-gold/40 rounded-full"
                       >
-                        <div className="w-2 h-2 bg-savanna-gold rounded-full animate-pulse" />
+                        <div className="w-2 h-2 bg-savanna-gold rounded-full" />
                         <span className="text-savanna-gold text-xs sm:text-sm tracking-[0.3em] uppercase font-semibold">
                           {reels[0].subtitle}
                         </span>
@@ -802,9 +802,6 @@ const VideoReels = () => {
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                   </div>
-
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-linear-to-t from-savanna-charcoal via-savanna-charcoal/60 to-transparent opacity-90 group-hover:opacity-95 transition-opacity duration-300" />
 
                   {/* Content */}
                   <div className="absolute inset-0 flex flex-col justify-end p-3 sm:p-4">

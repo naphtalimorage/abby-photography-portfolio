@@ -38,10 +38,10 @@ const Contact = () => {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${masaiMara})` }} />
-        <div className="absolute inset-0 bg-gradient-to-br from-savanna-charcoal via-savanna-charcoal/95 to-savanna-charcoal/90" />
+        <div className="absolute inset-0 bg-linear-to-br from-savanna-charcoal via-savanna-charcoal/95 to-savanna-charcoal/90" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-[64px] py-16 sm:py-20 md:py-24 lg:py-32">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16 py-16 sm:py-20 md:py-24 lg:py-32">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-8">
           {/* Left Side - Visual Content */}
           <motion.div

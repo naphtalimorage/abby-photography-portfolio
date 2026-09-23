@@ -18,7 +18,7 @@ import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/intergration/supabase/Client.ts';
 import SmartImage from '@/components/common/SmartImage';
 
-const categories = ["ALL", "WEDDINGS", "PORTRAITS", "BIG CATS", "PEOPLE & CULTURE", "EVENTS", "GREAT MIGRATION", "LANDSCAPES"];
+const categories = ["ALL", "ELEPHATS", "GIRAFFE", "BIG CATS", "PEOPLE & CULTURE", "EVENTS", "GREAT MIGRATION", "LANDSCAPES"];
 
 const getPublicUrl = (path: string) => {
   const { data } = supabase.storage.from('portfolio').getPublicUrl(path);
@@ -572,13 +572,12 @@ const Portfolio = () => {
             </div>
 
             <h1 className="flex flex-col items-center justify-center font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-savanna-cream mb-6 sm:mb-8 leading-[1.05] sm:leading-[0.95]">
-              <span className="block">The Archive</span>
-              <span className="block italic text-savanna-gold mt-2">Exhibition</span>
+              <span className="block">The Catalogue</span>
+              <span className="block italic text-savanna-gold mt-2">Exposition</span>
             </h1>
 
             <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl leading-relaxed mx-auto text-center px-1">
-              A visual journey through the soul of the Maasai Mara. From the thunderous Great Migration to the silent gaze of a leopard, every frame captures a moment of raw, untamed elegance.
-            </p>
+              Where the wild still roam free. Capturing the untamed beauty of East Africa's iconic landscapes and the extraordinary creatures that call this ancient land home.            </p>
           </motion.div>
         </section>
 
